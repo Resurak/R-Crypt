@@ -4,9 +4,118 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R_Crypt"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:vm="clr-namespace:R_Crypt.ViewModels"
+        xmlns:uc="clr-namespace:R_Crypt.UserControls.Views"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="450" MinHeight="450" Width="800" MinWidth="700">
+    <Window.DataContext>
+        <vm:MainWindowVM/>
+    </Window.DataContext>
+    
+    <Grid Background="{StaticResource BackgroundWindowColor}">
+
+        <Grid x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="MenuGrid" Grid.Column="0">
+                <uc:SideMenu/>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Margin="1" Background="Transparent" BorderBrush="AliceBlue" BorderThickness="0,0,0,1"/>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel>
+                        <TextBlock Text="Encryptor" Foreground="Cyan" FontSize="18" FontFamily="Verdana" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="ver 0.9" Foreground="Lime" FontSize="10" Margin="10,0,0,10" VerticalAlignment="Bottom"/>
+                    </DockPanel>
+                   
+                    <DockPanel Grid.Row="1">
+                        <TextBlock Text="ATTENZIONE!" FontSize="14" Foreground="Red" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center" FontFamily="Palatino Linotype"/>
+                        <TextBlock Text="Per poter criptare i file si deve usare una password. É possibile scegliere una password uguale per tutti i file, ma si consigliano sempre password diverse per sicurezza. Conservare tutte le password in un luogo sicuro." Foreground="Cyan" Margin="10,0,10,0" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Palatino Linotype"/>
+                    </DockPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <!--<Border Grid.Row="1" Background="Azure" BorderBrush="Black" BorderThickness="1">
+                        <Grid Grid.Row="1" DataContext="{Binding FilesToCrypt}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid x:Name="header" Grid.ColumnSpan="10">
+                                
+                            </Grid>
+
+                            <Grid x:Name="content" Grid.Row="1"/>
+
+                        </Grid>
+                    </Border>-->
+                    <Border Grid.Row="1" Background="#FF363636">
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding FilesToCrypt}" GridLinesVisibility="None" Background="#FF363636" ColumnHeaderStyle="{DynamicResource HeaderStyle}" AutoGenerateColumns="False" CanUserAddRows="False" RowHeaderWidth="0" Margin="10,0" BorderThickness="0" RowBackground="#FF363636">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto" MaxWidth="300"/>
+                                <DataGridTextColumn Header="Size" Binding="{Binding Size}" Width="auto" MaxWidth="50"/>
+                                <DataGridTemplateColumn Header="Progress" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <ProgressBar Margin="10,0" Minimum="0" Maximum="100"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                                <Grid Height="30">
+                                                    <DataGridCellsPresenter VerticalAlignment="Center" Foreground="Cyan" HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.RowStyle>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+
+            </Grid>
+            
+        </Grid>
         
     </Grid>
 </Window>
