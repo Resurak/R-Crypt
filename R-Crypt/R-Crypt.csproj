@@ -57,15 +57,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ConfigHandler.cs" />
-    <Compile Include="Common\ProgramBase.cs" />
+    <Compile Include="Models\ProgramBase.cs" />
     <Compile Include="Common\StartupHandler.cs" />
-    <Compile Include="Models\Config.cs" />
-    <Compile Include="Models\CryptoFiles.cs" />
+    <Compile Include="Models\Serializable\Config.cs" />
+    <Compile Include="Models\Serializable\CryptoFiles.cs" />
     <Compile Include="UserControls\Views\SpinningWheel.xaml.cs">
       <DependentUpon>SpinningWheel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FirstLoadWindowVM.cs" />
     <Compile Include="ViewModels\LoginWindowVM.cs" />
     <Compile Include="ViewModels\SplashScreenVM.cs" />
+    <Compile Include="Views\FirstLoadWindow.xaml.cs">
+      <DependentUpon>FirstLoadWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -74,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Views\SpinningWheel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FirstLoadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,11 +98,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\LoginHandler.cs" />
-    <Compile Include="Common\Utils\Utils.cs" />
+    <Compile Include="Common\Utils\CommonUtilities.cs" />
     <Compile Include="Crypt\Base\CryptBase.cs" />
     <Compile Include="Crypt\Base\CryptProgress.cs" />
     <Compile Include="Crypt\CryptHandler.cs" />
-    <Compile Include="Models\CryptoUser.cs" />
+    <Compile Include="Models\Serializable\CryptoUser.cs" />
     <Compile Include="Models\FilesToCrypt.cs" />
     <Compile Include="UserControls\Views\SideMenu.xaml.cs">
       <DependentUpon>SideMenu.xaml</DependentUpon>

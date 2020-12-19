@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R_Crypt.Models
+namespace R_Crypt.Crypt
 {
     class CryptoFiles
     {
