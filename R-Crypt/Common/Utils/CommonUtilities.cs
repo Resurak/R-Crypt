@@ -53,6 +53,7 @@ namespace R_Crypt.Common.Utils
             using (var stream = new FileStream(filePath, FileMode.Open ,FileAccess.Read, FileShare.Read))
             {
                 hash = sha256.ComputeHash(stream);
+                stream.Close();
             }
 
             foreach (var b in hash) sb.Append(b.ToString("x2"));

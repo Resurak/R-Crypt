@@ -21,10 +21,7 @@
 
                 <Grid>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="300">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock Text="R" FontFamily="Yellowtail" Foreground="Lime" FontSize="80" Margin="-15,0,0,0" TextAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Text="Crypt" FontFamily="Verdana" Foreground="White" FontSize="40" Margin="15,0,0,0" VerticalAlignment="Center"/>
-                        </StackPanel>
+                        <uc:LogoPanel/>
                         <TextBlock Text="Lightweight and easy to use encryptor and decryptor" Foreground="White" TextWrapping="Wrap" TextAlignment="Center"/>
                     </StackPanel>
                 </Grid>

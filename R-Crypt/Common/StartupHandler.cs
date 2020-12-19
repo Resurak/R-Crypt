@@ -27,8 +27,8 @@ namespace R_Crypt.Common
 
         public static async void LoadConfig()
         {
-            CryptHandler crypt = new();
-            crypt.EncryptConfig("prova");
+            //CryptHandler crypt = new();
+            //crypt.EncryptConfig("prova");
 
             if (!Directory.Exists(ProgramBase.ConfigFolder_Path)) Directory.CreateDirectory(ProgramBase.ConfigFolder_Path);
 
@@ -41,7 +41,7 @@ namespace R_Crypt.Common
                     ProgramWideConfig = ConfigHandler.DeserializeConfig(ProgramBase.ConfigFile_Path);
 
                     if (ProgramWideConfig.NoUser) Startup = StartupType.NoUser;
-                    else Startup = StartupType.WithUser;
+                    else Startup = StartupType.NoUser;
                 }
                 else
                 {
@@ -52,7 +52,6 @@ namespace R_Crypt.Common
                 if (string.IsNullOrWhiteSpace(ProgramWideConfig.ExePath))
                 {
                     ProgramWideConfig.ExePath = ProgramBase.ExeFile_Path;
-                    MessageBox.Show(ProgramWideConfig.ExePath);
                 }
 
                 Loaded = true;
@@ -79,7 +78,7 @@ namespace R_Crypt.Common
 
                 ProgramWideConfig.LastExeSha256 = ProgramWideConfig.CurrentExeSha256;
 
-                Thread.Sleep(3000);
+                //Thread.Sleep(3000);
 
                 ConfigHandler.SaveChanges();
             });
@@ -106,8 +105,8 @@ namespace R_Crypt.Common
                 lw.Show();
             }
 
-            CryptHandler crypt = new();
-            crypt.EncryptConfig("prova");
+            //CryptHandler crypt = new();
+            //crypt.EncryptConfig("prova");
         }
 
         public enum StartupType { FirstTime, NoUser, WithUser}

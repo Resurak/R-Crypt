@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R_Crypt.Views"
+        xmlns:uc="clr-namespace:R_Crypt.UserControls.Views"
         mc:Ignorable="d"
         Title="R-Crypt - Primo avvio" Height="450" Width="700" MinWidth="550" MinHeight="400">
     <Grid Background="{DynamicResource BackgroundWindowColor}">
@@ -13,7 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="#FF282A2C" >
+        <Grid Grid.Column="0" Background="{DynamicResource BackgroundDarkColor}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="*"/>
@@ -22,10 +23,7 @@
             <Border BorderThickness="0,0,1,0" BorderBrush="AliceBlue" Grid.RowSpan="2"/>
             <Border BorderThickness="0,0,0,1" BorderBrush="AliceBlue" />
 
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Text="R" FontFamily="Yellowtail" Foreground="Lime" FontSize="80" Margin="-15,0,0,0" TextAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Text="Crypt" FontFamily="Verdana" Foreground="White" FontSize="40" Margin="15,0,0,0" VerticalAlignment="Center"/>
-            </StackPanel>
+            <uc:LogoPanel/>
 
             <Grid Grid.Row="1">
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R_Crypt.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,16 @@ namespace R_Crypt
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            foreach (var arg in e.Args)
+            {
+                if (arg == "-debug") MessageBox.Show("debug");
+            }
+
+            R_Crypt.Views.SplashScreen sc = new();
+            Application.Current.MainWindow = sc;
+            sc.Show();
+        }
     }
 }

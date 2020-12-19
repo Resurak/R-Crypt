@@ -61,6 +61,12 @@
     <Compile Include="Common\StartupHandler.cs" />
     <Compile Include="Models\Serializable\Config.cs" />
     <Compile Include="Models\Serializable\CryptoFiles.cs" />
+    <Compile Include="UserControls\Views\MenuButton.xaml.cs">
+      <DependentUpon>MenuButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Views\LogoPanel.xaml.cs">
+      <DependentUpon>LogoPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Views\SpinningWheel.xaml.cs">
       <DependentUpon>SpinningWheel.xaml</DependentUpon>
     </Compile>
@@ -73,6 +79,14 @@
     <Compile Include="Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\Views\MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Views\LogoPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Views\SideMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

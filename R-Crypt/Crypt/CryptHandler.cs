@@ -105,54 +105,54 @@ namespace R_Crypt.Crypt
             OnCompletedCrypt();
         }
 
-        public async void EncryptConfig(string pass)
-        {
-            var salt = GenerateSalt(32);
-            var ivKey = GenerateSalt(32);
+        //public async void EncryptConfig(string pass)
+        //{
+        //    var salt = GenerateSalt(32);
+        //    var ivKey = GenerateSalt(32);
 
-            using (var saltedPassword = new Rfc2898DeriveBytes(pass, salt, ProgramWideConfig.RfcIterations))
-            {
-                var saltedPasswordBytes = saltedPassword.GetBytes(32);
+        //    using (var saltedPassword = new Rfc2898DeriveBytes(pass, salt, ProgramWideConfig.RfcIterations))
+        //    {
+        //        var saltedPasswordBytes = saltedPassword.GetBytes(32);
 
-                using (var AES_Key  = new RijndaelManaged { BlockSize = ProgramWideConfig.AES_KeySize, Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7})
-                using (var encryptor = AES_Key.CreateEncryptor(saltedPasswordBytes, ivKey))
-                using (var streamConfig = new MemoryStream())
-                using (var streamConfigFile = new FileStream(ProgramBase.ConfigFile_Path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                using (var streamCrypto = new CryptoStream(streamConfigFile, encryptor, CryptoStreamMode.Write))
-                {
-                    try
-                    {
-                        streamConfig.Write(salt, 0, salt.Length);
-                        streamConfig.Write(ivKey, 0, ivKey.Length);
+        //        using (var AES_Key  = new RijndaelManaged { BlockSize = ProgramWideConfig.AES_KeySize, Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7})
+        //        using (var encryptor = AES_Key.CreateEncryptor(saltedPasswordBytes, ivKey))
+        //        using (var streamConfig = new MemoryStream())
+        //        using (var streamConfigFile = new FileStream(ProgramBase.ConfigFile_Path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+        //        using (var streamCrypto = new CryptoStream(streamConfigFile, encryptor, CryptoStreamMode.Write))
+        //        {
+        //            try
+        //            {
+        //                streamConfig.Write(salt, 0, salt.Length);
+        //                streamConfig.Write(ivKey, 0, ivKey.Length);
                         
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        formatter.Serialize(streamConfig, ProgramWideConfig);
+        //                BinaryFormatter formatter = new BinaryFormatter();
+        //                formatter.Serialize(streamConfig, ProgramWideConfig);
 
-                        long remaining = streamConfig.Length;
+        //                long remaining = streamConfig.Length;
 
-                        do
-                        {
-                            int bytesRead = await streamConfig.ReadAsync(StreamBuffer, 0, (int)Math.Min(StreamBuffer.Length, remaining));
-                            if (bytesRead == 0) break;
+        //                do
+        //                {
+        //                    int bytesRead = await streamConfig.ReadAsync(StreamBuffer, 0, (int)Math.Min(StreamBuffer.Length, remaining));
+        //                    if (bytesRead == 0) break;
 
-                            await streamCrypto.WriteAsync(StreamBuffer, 0, bytesRead);
+        //                    await streamCrypto.WriteAsync(StreamBuffer, 0, bytesRead);
 
-                            remaining -= bytesRead;
-                        }
-                        while (remaining > 0);
+        //                    remaining -= bytesRead;
+        //                }
+        //                while (remaining > 0);
 
-                        streamCrypto.FlushFinalBlock();
-                        streamCrypto.Close();
-                    } 
-                    catch (Exception e) { MessageBox.Show(e.ToString()); }
-                    finally
-                    {
-                        streamConfig.Close();
-                        streamConfigFile.Close();
-                    }
-                }
-            }
-        }
+        //                streamCrypto.FlushFinalBlock();
+        //                streamCrypto.Close();
+        //            } 
+        //            catch (Exception e) { MessageBox.Show(e.ToString()); }
+        //            finally
+        //            {
+        //                streamConfig.Close();
+        //                streamConfigFile.Close();
+        //            }
+        //        }
+        //    }
+        //}
 
 
 

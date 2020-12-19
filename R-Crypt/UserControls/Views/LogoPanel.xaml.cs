@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace R_Crypt.Views
+namespace R_Crypt.UserControls.Views
 {
     /// <summary>
-    /// Logica di interazione per MainWindow.xaml
+    /// Logica di interazione per LogoPanel.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LogoPanel : UserControl
     {
-        public MainWindow()
+        public LogoPanel()
         {
             InitializeComponent();
         }

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace R_Crypt.Crypt
 {
-    class CryptoFiles
+    public class CryptoFiles
     {
+        public CryptoFiles()
+        {
+
+        }
+
+        public string Path { get; set; }
+        public string Size { get; set; }
     }
 }

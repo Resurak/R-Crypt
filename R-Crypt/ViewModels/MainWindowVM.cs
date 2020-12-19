@@ -18,7 +18,7 @@ namespace R_Crypt.ViewModels
             FilesToCrypt = new();
             FilesToCrypt.Add(new Models.FilesToCrypt { Name = "provwadasdawdsadawdsadawdedada1", Size = "dwawds", ProgressBar = new ProgressBar { Width = 200 } });
             FilesToCrypt.Add(new Models.FilesToCrypt { Name = "awdsavggh", Size = "awda", ProgressBar = new ProgressBar { Width = 200, Value = 20 } });
-            FilesToCrypt.Add(new Models.FilesToCrypt { Name = "provwadasdawdsadawdsadawdedada1provwadasdawdsadawdsadawdedada1", Size = "awdsadaw", ProgressBar = new ProgressBar { Width = 200, Value = 35 } });
+            FilesToCrypt.Add(new Models.FilesToCrypt { Name = "provwadasdawdsadawdsadawdedada1provwadawadsadawdasdawdsadawdsadwadsadwadsadawdsadawsadawdasdsdawdsadawdsadawdedada1", Size = "awdsadaw", ProgressBar = new ProgressBar { Width = 200, Value = 35 } });
             FilesToCrypt.Add(new Models.FilesToCrypt { Name = "provwadasdawdsadawdsadawdedada1", Size = "shwadwaddupt", ProgressBar = new ProgressBar { Width = 200, Value = 84 } });
         }
 
