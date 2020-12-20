@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:R_Crypt.ViewModels"
         xmlns:uc="clr-namespace:R_Crypt.UserControls.Views"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="600" MinHeight="450" Width="700" MinWidth="700">
+        Title="R-Crypt" Height="600" MinHeight="450" Width="700" MinWidth="700">
     <Window.DataContext>
         <vm:MainWindowVM/>
     </Window.DataContext>
@@ -16,7 +16,7 @@
 
         <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="120"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -34,7 +34,9 @@
                 </DockPanel>-->
                 
                 <uc:LogoPanel HorizontalAlignment="Left" Margin="20,0" Grid.Column="1"/>
-                
+
+                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Text="ver 0.11" Foreground="Red" FontSize="12"/>
+
             </Grid>
 
             <Grid Grid.Row="1">
@@ -45,145 +47,153 @@
                 </Grid.RowDefinitions>
 
                 <Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Selected method: " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="White" Margin="20,0,0,0"/>
+                        <TextBlock Grid.Column="1" Text="Encrypt" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="Lime" Margin="5,0"/>
+
+                    </Grid>
                     
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Button x:Name="LockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Encrypt">
+                            <Image Source="/Resources/padlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                        </Button>
+                        <Button x:Name="UnlockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Decrypt">
+                            <Image Source="/Resources/unlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                        </Button>
+                        <Button x:Name="OptionsBtn" Width="40" Height="40" Margin="10,0" ToolTip="Options">
+                            <Image Source="/Resources/gears.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock Text="List of files" Margin="20,5" FontSize="14" Foreground="Wheat"/>
+                </Grid>
 
-                    <DataGrid ItemsSource="{Binding FilesToCrypt}" Margin="10,0" RowHeaderWidth="0" 
+                <DataGrid ItemsSource="{Binding FilesToCrypt}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden"
-                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}">
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                                <Setter Property="Foreground" Value="Wheat"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" Margin="10,0"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.Header>
-                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <TextBlock Text="Percorso File" Margin="0,0"/>
+                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                            <Setter Property="Foreground" Value="Wheat"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" Margin="10,0" ToolTip="{Binding Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.Header>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <TextBlock Text="File path" Margin="0,0"/>
+                                </Grid>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                                    <Setter Property="Foreground" Value="Wheat"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="Margin" Value="10,0,0,0"/>
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Size}" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock Text="Size" HorizontalAlignment="Center" TextAlignment="Center" FontSize="14"/>
+                            </DataGridTemplateColumn.Header>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="120">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock Text="Progress" HorizontalAlignment="Center" TextAlignment="Center"/>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock Text="Computing Hash" HorizontalAlignment="Center" Visibility="{Binding TextBlockVisibility}"/>
+                                        <ProgressBar Margin="0,0,10,0" Value="{Binding Value}" Maximum="100" Minimum="0" Visibility="{Binding ProgressBarVisibility}"/>
                                     </Grid>
-                                </DataGridTemplateColumn.Header>
-                                <DataGridTemplateColumn.HeaderStyle>
-                                    <Style TargetType="DataGridColumnHeader">
-                                        <Setter Property="Height" Value="30"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                        <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                                        <Setter Property="Foreground" Value="Wheat"/>
-                                        <Setter Property="FontSize" Value="14"/>
-                                        <Setter Property="Margin" Value="10,0,0,0"/>
-                                    </Style>
-                                </DataGridTemplateColumn.HeaderStyle>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="80">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Size}" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="Dimensioni" HorizontalAlignment="Center" TextAlignment="Center" FontSize="14"/>
-                                </DataGridTemplateColumn.Header>
-                            </DataGridTemplateColumn>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                                    <Setter Property="Foreground" Value="Wheat"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="0,0,10,0"/>
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="FontFamily" Value="Verdana"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                            <Setter Property="Height" Value="20"/>
+                            <Setter Property="Margin" Value="0,5,0,0"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                        <TextBlock Text="Start" FontSize="14"/>
+                    </Button>
+
+                    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,0,0">
+
+                        <StackPanel Orientation="Horizontal">
                             
-                            <DataGridTemplateColumn Width="100">
-                                <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="Progresso" HorizontalAlignment="Center" TextAlignment="Center"/>
-                                </DataGridTemplateColumn.Header>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <ProgressBar Margin="0,0,10,0"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.HeaderStyle>
-                                    <Style TargetType="DataGridColumnHeader">
-                                        <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                                        <Setter Property="Foreground" Value="Wheat"/>
-                                        <Setter Property="FontSize" Value="14"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                        <Setter Property="Margin" Value="0,0,10,0"/>
-                                    </Style>
-                                </DataGridTemplateColumn.HeaderStyle>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="{x:Type DataGridRow}">
-                                <Setter Property="FontFamily" Value="Verdana"/>
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                                <Setter Property="Height" Value="20"/>
-                                <Setter Property="Margin" Value="0,10,0,0"/>
-                            </Style>
-                        </DataGrid.RowStyle>
-                    </DataGrid>
-                    
-                    <Grid Grid.IsSharedSizeScope="True" Margin="20,0" Background="{DynamicResource BackgroundDarkColor}" Visibility="Hidden">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" SharedSizeGroup="Path"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*" SharedSizeGroup="Size"/>
-                            <ColumnDefinition Width="*" SharedSizeGroup="Progress"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Total Size" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Wheat"/>
+                                <TextBlock Text="874.56 MB" Foreground="Lime" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                            </StackPanel>
+                            
+                            <Separator Width="20" Opacity="0"/>
+                            
+                            <StackPanel Orientation="Vertical" Width="150">
+                                <TextBlock Text="Processed" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Wheat"/>
+                                <TextBlock Text="0 MB / 874.56 MB" Foreground="Lime" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                            </StackPanel>
+                            
+                        </StackPanel>
 
-                        <TextBlock Text="Percorso file" Foreground="Wheat" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"/>
-                        <TextBlock Text="Dimensioni" Foreground="Wheat" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-10,0"/>
-                        <TextBlock Text="Progresso" Foreground="Wheat" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-10,0"/>
-
-                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Grid.Row="1" Grid.ColumnSpan="4">
-                            <ItemsControl ItemsSource="{Binding FilesToCrypt}" Grid.ColumnSpan="4" Grid.Row="1" Margin="10,0">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" SharedSizeGroup="Path" MaxWidth="400"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80" SharedSizeGroup="Size"/>
-                                                <ColumnDefinition Width="100" SharedSizeGroup="Progress"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Grid.Column="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ToolTip="{Binding Name}"/>
-                                            <TextBlock Text="{Binding Size}" Foreground="White" Grid.Column="2"/>
-                                            <ProgressBar Grid.Column="3" Width="100"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="Total Progress" FontSize="14" Foreground="Wheat" HorizontalAlignment="Center"/>
+                            <Separator Height="10" Opacity="0"/>
+                            <ProgressBar Height="25" HorizontalAlignment="Stretch" Margin="20,0"/>
+                        </StackPanel>
                         
-                    </Grid>
-
-                    <!--<DataGrid ItemsSource="{Binding FilesToCrypt}" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Percorso Originale" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Dimensioni" Binding="{Binding Size}"/>
-                            <DataGridTemplateColumn Header="Progresso">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ProgressBar />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>-->
+                    </DockPanel>
+                    
                 </Grid>
                 
             </Grid>

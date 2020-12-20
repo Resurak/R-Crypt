@@ -171,5 +171,12 @@
   <ItemGroup>
     <Resource Include="Resources\blank_user.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\gears.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\padlock.png" />
+    <Resource Include="Resources\unlock.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
