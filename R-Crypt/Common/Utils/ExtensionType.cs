@@ -50,6 +50,7 @@ namespace R_Crypt.Common.Utils
         public static string DLL = ".dll";
         public static string Rar = ".rar";
         public static string Zip = ".zip";
+        public static string link = ".lnk";
 
         public static string GetExtensionType(this string extension)
         {
@@ -81,6 +82,7 @@ namespace R_Crypt.Common.Utils
             if (extension == Zip) return "Compressed Folder";
             if (extension == DLL) return "DLL Library";
             if (extension == Text) return "Text File";
+            if (extension == link) return "Link";
 
             return extension;
         }

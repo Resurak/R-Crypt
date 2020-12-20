@@ -113,7 +113,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid>
-                                        <TextBlock Text="Computing Hash" HorizontalAlignment="Center" Visibility="{Binding TextBlockVisibility}"/>
+                                        <TextBlock Text="{Binding ProgressText}" HorizontalAlignment="Center" Visibility="{Binding TextBlockVisibility}"/>
                                         <ProgressBar Margin="0,0,10,0" Value="{Binding ProcessedBytes}" Maximum="100" Minimum="0" Visibility="{Binding ProgressBarVisibility}"/>
                                     </Grid>
                                 </DataTemplate>

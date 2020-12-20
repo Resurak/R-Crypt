@@ -8,21 +8,23 @@ using R_Crypt.Common.Utils;
 
 namespace R_Crypt.Models.Serializable
 {
-    public class CryptoFiles
+    public class CryptoFile
     {
-        public CryptoFiles()
+        public CryptoFile()
         {
 
         }
 
-        public CryptoFiles(string file)
+        public CryptoFile(string file)
         {
             if (file.CheckExist())
             {
-                PathText = file.GetFileName();
-                Path = file;
-                Tooltip = $"Path of the file: {file}";
                 IsFolder = file.IsDirectoryOrFile();
+
+                Path = file;
+                PathText = Path.GetFileName();
+
+                Tooltip = $"Path of the file: {Path}";
 
                 if (IsFolder)
                 {
@@ -31,8 +33,8 @@ namespace R_Crypt.Models.Serializable
                 }
                 else
                 {
-                    TotalBytes = file.GetSizeFromFilePath();
-                    FileExtension = file.GetFileExtension();
+                    TotalBytes = Path.GetSizeFromFilePath();
+                    FileExtension = Path.GetFileExtension();
                     FileTypeText = FileExtension.GetExtensionType();
                 }
 
@@ -45,7 +47,7 @@ namespace R_Crypt.Models.Serializable
             else
             {
                 PathText = "Error";
-                Tooltip = $"Error. Cannot get {file}. Probably need admin privileges";
+                Tooltip = $"Error. Cannot get {Path}. Probably need admin privileges";
                 Error = true;
             }
         }

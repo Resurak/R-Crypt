@@ -61,7 +61,7 @@
     <Compile Include="Models\ProgramBase.cs" />
     <Compile Include="Common\StartupHandler.cs" />
     <Compile Include="Models\Serializable\Config.cs" />
-    <Compile Include="Models\Serializable\CryptoFiles.cs" />
+    <Compile Include="Models\Serializable\CryptoFile.cs" />
     <Compile Include="UserControls\Views\MenuButton.xaml.cs">
       <DependentUpon>MenuButton.xaml</DependentUpon>
     </Compile>

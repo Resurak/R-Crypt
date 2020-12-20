@@ -96,8 +96,7 @@ namespace R_Crypt.Common.Utils
 
         public static string GetFileName(this string path)
         {
-            if (path.IsDirectoryOrFile()) return Path.GetDirectoryName(path);
-            else return Path.GetFileName(path);
+            return path.Substring(path.LastIndexOf('\\') + 1);
         }
 
         public static string GetFileExtension(this string path)

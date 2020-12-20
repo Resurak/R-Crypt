@@ -56,18 +56,28 @@ namespace R_Crypt.ViewModels
             if (fileDialog.ShowDialog() == true)
             {
                 foreach (var file in fileDialog.FileNames) 
-                    CryptoFiles.Add(new CryptoFiles(file));
+                    CryptoFiles.Add(new CryptoFile(file));
             }
         }
 
-        public ObservableCollection<CryptoFiles> CryptoFiles { get; set; }
+        public ObservableCollection<CryptoFile> CryptoFiles { get => _CryptoFiles; set { _CryptoFiles = value; Notify(); } }
+        private ObservableCollection<CryptoFile> _CryptoFiles = new();
 
         public void AddFilesToList(string[] files)
         {
             foreach (var file in files)
             {
-                CryptoFiles.Add(new CryptoFiles(file));
+                CryptoFiles.Add(new CryptoFile(file));
             }
+
+            ObservableCollection<CryptoFile> orderedByFolder =
+                new ObservableCollection<CryptoFile>(CryptoFiles.Where(folder => folder.IsFolder == true).OrderBy(folder => folder.PathText).ToList());
+
+            ObservableCollection<CryptoFile> orderedByType =
+                new ObservableCollection<CryptoFile>(CryptoFiles.Where(file => file.IsFolder == false).OrderBy(file => file.FileTypeText).ToList());
+
+            CryptoFiles = 
+                new ObservableCollection<CryptoFile>(orderedByFolder.Concat(orderedByType).ToList());
         } 
     }
 }
