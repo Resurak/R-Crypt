@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ConfigHandler.cs" />
+    <Compile Include="Common\Utils\ExtensionType.cs" />
     <Compile Include="Models\ProgramBase.cs" />
     <Compile Include="Common\StartupHandler.cs" />
     <Compile Include="Models\Serializable\Config.cs" />

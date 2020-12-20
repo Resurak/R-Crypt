@@ -61,6 +61,9 @@
                     </Grid>
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+                        <Button x:Name="AddFilesBtn" Width="80" Height="40" Margin="10,0" ToolTip="Select files to add" Command="{Binding AddFilesCommand}">
+                            <TextBlock Text="Add Files" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button>
                         <Button x:Name="LockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Encrypt">
                             <Image Source="/Resources/padlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                         </Button>
@@ -80,54 +83,33 @@
                 <DataGrid ItemsSource="{Binding CryptoFiles}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden" PreviewDrop="DataGrid_PreviewDrop"
-                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True">
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                            <Setter Property="Foreground" Value="Wheat"/>
-                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalAlignment" Value="Stretch"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
+                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True" ColumnHeaderStyle="{DynamicResource BaseHeaderStyle}">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn Width="*" HeaderStyle="{DynamicResource LeftHeaderStyle}" Header="File">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path}" Margin="10,0" ToolTip="{Binding Path}"/>
+                                    <TextBlock Text="{Binding PathText}" Margin="10,0" ToolTip="{Binding Tooltip}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                            <DataGridTemplateColumn.Header>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <TextBlock Text="File path" Margin="0,0"/>
-                                </Grid>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="Height" Value="30"/>
-                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                    <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                                    <Setter Property="Foreground" Value="Wheat"/>
-                                    <Setter Property="FontSize" Value="14"/>
-                                    <Setter Property="Margin" Value="10,0,0,0"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Width="100">
+                        
+                        <DataGridTemplateColumn Width="auto" MinWidth="80" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Type">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FileTypeText}" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                        <DataGridTemplateColumn Width="100" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Size">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding TotalBytes}" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock Text="Size" HorizontalAlignment="Center" TextAlignment="Center" FontSize="14"/>
-                            </DataGridTemplateColumn.Header>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="120">
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock Text="Progress" HorizontalAlignment="Center" TextAlignment="Center"/>
-                            </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn Width="120" HeaderStyle="{DynamicResource RightHeaderStyle}" Header="Progress">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -136,15 +118,6 @@
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                            <DataGridTemplateColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                                    <Setter Property="Foreground" Value="Wheat"/>
-                                    <Setter Property="FontSize" Value="14"/>
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="Margin" Value="0,0,10,0"/>
-                                </Style>
-                            </DataGridTemplateColumn.HeaderStyle>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                     <DataGrid.RowStyle>

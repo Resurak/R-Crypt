@@ -94,6 +94,17 @@ namespace R_Crypt.Common.Utils
             else return "error";
         }
 
+        public static string GetFileName(this string path)
+        {
+            if (path.IsDirectoryOrFile()) return Path.GetDirectoryName(path);
+            else return Path.GetFileName(path);
+        }
+
+        public static string GetFileExtension(this string path)
+        {
+            return Path.GetExtension(path);
+        }
+
         /// <summary>
         /// Return false if its a file, true if its a folder
         /// </summary>

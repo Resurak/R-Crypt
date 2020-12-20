@@ -8,6 +8,27 @@
         <SolidColorBrush x:Key="BackgroundWindowColor" Color="#FF3C444D"/>
         <SolidColorBrush x:Key="BackgroundDarkColor" Color="#FF282A2C"/>
 
+        <Style x:Key="BaseHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+            <Setter Property="Foreground" Value="Wheat"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="LeftHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseHeaderStyle}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+
+        <Style x:Key="CenterHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseHeaderStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="RightHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseHeaderStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+        
         <Style x:Key="LoadingBorder" TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="10,10,0,0"/>
             <Setter Property="Background" Value="Wheat"/>
