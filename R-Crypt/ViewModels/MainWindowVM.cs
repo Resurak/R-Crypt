@@ -74,7 +74,7 @@ namespace R_Crypt.ViewModels
                 new ObservableCollection<CryptoFile>(CryptoFiles.Where(folder => folder.IsFolder == true).OrderBy(folder => folder.PathText).ToList());
 
             ObservableCollection<CryptoFile> orderedByType =
-                new ObservableCollection<CryptoFile>(CryptoFiles.Where(file => file.IsFolder == false).OrderBy(file => file.FileTypeText).ToList());
+                new ObservableCollection<CryptoFile>(CryptoFiles.Where(file => file.IsFolder == false).OrderBy(file => file.PathText).OrderBy(file => file.FileTypeText).ToList());
 
             CryptoFiles = 
                 new ObservableCollection<CryptoFile>(orderedByFolder.Concat(orderedByType).ToList());

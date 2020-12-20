@@ -31,7 +31,6 @@ namespace R_Crypt.Views
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 (DataContext as MainWindowVM).AddFilesToList((string[])e.Data.GetData(DataFormats.FileDrop));
-                //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             }
         }
     }

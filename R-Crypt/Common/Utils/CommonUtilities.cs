@@ -112,7 +112,7 @@ namespace R_Crypt.Common.Utils
         public static bool IsDirectoryOrFile(this string path)
         {
             FileAttributes attributes = File.GetAttributes(path);
-            if (attributes == FileAttributes.Directory) return true;
+            if ((attributes & FileAttributes.Directory) == FileAttributes.Directory) return true;
             else return false;
         }
 
