@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using R_Crypt.ViewModels;
 
 namespace R_Crypt.Views
 {
@@ -23,6 +24,15 @@ namespace R_Crypt.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void DataGrid_PreviewDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                (DataContext as MainWindowVM).AddFilesToList((string[])e.Data.GetData(DataFormats.FileDrop));
+                //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            }
         }
     }
 }

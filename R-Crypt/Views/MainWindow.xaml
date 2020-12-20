@@ -77,9 +77,9 @@
                     <TextBlock Text="List of files" Margin="20,5" FontSize="14" Foreground="Wheat"/>
                 </Grid>
 
-                <DataGrid ItemsSource="{Binding FilesToCrypt}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
+                <DataGrid ItemsSource="{Binding CryptoFiles}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False"
-                              GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden"
+                              GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden" PreviewDrop="DataGrid_PreviewDrop"
                               BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
@@ -94,7 +94,7 @@
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" Margin="10,0" ToolTip="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Path}" Margin="10,0" ToolTip="{Binding Path}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.Header>
@@ -116,7 +116,7 @@
                         <DataGridTemplateColumn Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Size}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TotalBytes}" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.Header>
@@ -132,7 +132,7 @@
                                 <DataTemplate>
                                     <Grid>
                                         <TextBlock Text="Computing Hash" HorizontalAlignment="Center" Visibility="{Binding TextBlockVisibility}"/>
-                                        <ProgressBar Margin="0,0,10,0" Value="{Binding Value}" Maximum="100" Minimum="0" Visibility="{Binding ProgressBarVisibility}"/>
+                                        <ProgressBar Margin="0,0,10,0" Value="{Binding ProcessedBytes}" Maximum="100" Minimum="0" Visibility="{Binding ProgressBarVisibility}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

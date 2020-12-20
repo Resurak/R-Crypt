@@ -34,14 +34,21 @@ namespace R_Crypt.Common.Utils
             const double MB = 1048576.00;
             const double GB = 1073741824.00;
 
-            string temp = "";
+            string tempStr = "";
 
-            if (totalByte >= kB && totalByte < MB) temp = $"{totalByte} kB";
-            else if (totalByte >= MB && totalByte < GB) temp = $"{totalByte} MB";
-            else if (totalByte >= GB) temp = $"{totalByte} GB";
-            else temp = $"{totalByte} B";
+            double tempByte = 0.00;
 
-            return temp;
+            if (totalByte >= kB && totalByte < MB) tempByte = totalByte / kB;
+            else if (totalByte >= MB && totalByte < GB) tempByte = totalByte / MB;
+            else if (totalByte >= GB) tempByte = totalByte / GB;
+            else tempByte = totalByte;
+
+            if (totalByte >= kB && totalByte < MB) tempStr = $"{Math.Round(tempByte, 2)} kB";
+            else if (totalByte >= MB && totalByte < GB) tempStr = $"{Math.Round(tempByte, 2)} MB";
+            else if (totalByte >= GB) tempStr = $"{Math.Round(tempByte, 2)} GB";
+            else tempStr = $"{Math.Round(tempByte, 2)} B";
+
+            return tempStr;
         }
 
         public static double ByteConversion(this long totalByte)
@@ -85,6 +92,32 @@ namespace R_Crypt.Common.Utils
                 return info.Length.ConvertLongByteToString();
             }
             else return "error";
+        }
+
+        /// <summary>
+        /// Return false if its a file, true if its a folder
+        /// </summary>
+        /// <param name="path">the path to check</param>
+        /// <returns></returns>
+        public static bool IsDirectoryOrFile(this string path)
+        {
+            FileAttributes attributes = File.GetAttributes(path);
+            if (attributes == FileAttributes.Directory) return true;
+            else return false;
+        }
+
+        /// <summary>
+        /// Check if a path exist
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool CheckExist(this string path)
+        {
+            bool checkFile = File.Exists(path);
+            bool checkDir = Directory.Exists(path);
+
+            if (checkFile || checkDir) return true;
+            else return false;
         }
 
         public static string GetCurrentExePath()
