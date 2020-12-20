@@ -50,7 +50,87 @@
 
                 <Grid Grid.Row="1">
 
-                    <Grid Grid.IsSharedSizeScope="True">
+                    <DataGrid ItemsSource="{Binding FilesToCrypt}" Margin="10,0" RowHeaderWidth="0" 
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                              GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden"
+                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                                <Setter Property="Foreground" Value="Wheat"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" Margin="10,0"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.Header>
+                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <TextBlock Text="Percorso File" Margin="0,0"/>
+                                    </Grid>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                        <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                                        <Setter Property="Foreground" Value="Wheat"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Margin" Value="10,0,0,0"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Size}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="Dimensioni" HorizontalAlignment="Center" TextAlignment="Center" FontSize="14"/>
+                                </DataGridTemplateColumn.Header>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="Progresso" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <ProgressBar Margin="0,0,10,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                                        <Setter Property="Foreground" Value="Wheat"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="Margin" Value="0,0,10,0"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="FontFamily" Value="Verdana"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+                                <Setter Property="Height" Value="20"/>
+                                <Setter Property="Margin" Value="0,10,0,0"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                    
+                    <Grid Grid.IsSharedSizeScope="True" Margin="20,0" Background="{DynamicResource BackgroundDarkColor}" Visibility="Hidden">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" SharedSizeGroup="Path"/>
                             <ColumnDefinition Width="*"/>
@@ -62,30 +142,32 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Percorso file" Grid.Column="0"/>
-                        <TextBlock Text="Dimensioni" Grid.Column="2"/>
-                        <TextBlock Text="Progresso" Grid.Column="3"/>
+                        <TextBlock Text="Percorso file" Foreground="Wheat" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"/>
+                        <TextBlock Text="Dimensioni" Foreground="Wheat" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-10,0"/>
+                        <TextBlock Text="Progresso" Foreground="Wheat" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-10,0"/>
 
-                        <ItemsControl ItemsSource="{Binding FilesToCrypt}" Grid.ColumnSpan="4" Grid.Row="1">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" SharedSizeGroup="Path" MaxWidth="400"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="80" SharedSizeGroup="Size"/>
-                                            <ColumnDefinition Width="100" SharedSizeGroup="Progress"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Name}" Grid.Column="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ToolTip="{Binding Name}"/>
-                                        <TextBlock Text="{Binding Size}" Grid.Column="2"/>
-                                        <ProgressBar Grid.Column="3" Width="100"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Grid.Row="1" Grid.ColumnSpan="4">
+                            <ItemsControl ItemsSource="{Binding FilesToCrypt}" Grid.ColumnSpan="4" Grid.Row="1" Margin="10,0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" SharedSizeGroup="Path" MaxWidth="400"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="80" SharedSizeGroup="Size"/>
+                                                <ColumnDefinition Width="100" SharedSizeGroup="Progress"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Grid.Column="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ToolTip="{Binding Name}"/>
+                                            <TextBlock Text="{Binding Size}" Foreground="White" Grid.Column="2"/>
+                                            <ProgressBar Grid.Column="3" Width="100"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                         
                     </Grid>
 
