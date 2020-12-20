@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using R_Crypt.Common.Utils;
+using System.Drawing;
+using System.Windows.Media;
+using System.Reflection;
 
 namespace R_Crypt.Models.Serializable
 {
@@ -28,12 +33,24 @@ namespace R_Crypt.Models.Serializable
 
                 if (IsFolder)
                 {
-                    TotalBytes = "";
+                    Icon = new BitmapImage(new Uri(@"pack://application:,,,/"
+                        + Assembly.GetExecutingAssembly().GetName().Name
+                        + ";component/"
+                        + "Resources/folder.png", UriKind.Absolute));
+
+                    TotalBytesString = "";
                     FileTypeText = "Folder";
                 }
                 else
                 {
-                    TotalBytes = Path.GetSizeFromFilePath();
+                    FileInfo info = new(file);
+
+                    FileSize = info.Length;
+
+                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(file);
+                    Icon = icon.ToImageSource();
+
+                    TotalBytesString = Path.GetSizeFromFilePath();
                     FileExtension = Path.GetFileExtension();
                     FileTypeText = FileExtension.GetExtensionType();
                 }
@@ -50,17 +67,26 @@ namespace R_Crypt.Models.Serializable
                 Tooltip = $"Error. Cannot get {Path}. Probably need admin privileges";
                 Error = true;
             }
-        }
+        } 
 
-        public string PathText { get; set; }
         public string Path { get; set; }
-        public string Tooltip { get; set; }
+        public string PathText { get; set; }
+
+        public ImageSource Icon { get; set; } 
+
+        public bool IsFolder { get; set; }
+
         public string FileExtension { get; set; }
         public string FileTypeText { get; set; }
-        public bool IsFolder { get; set; }
-        public string TotalBytes { get; set; }
+
+        public long FileSize { get; set; }
+        public string TotalBytesString { get; set; }
+
+        public string Tooltip { get; set; }
+
         public double ProcessedBytes { get; set; }
         public string ProgressText { get; set; }
+
         public string BeforeEncryptionHash { get; set; }
         public string AfterEncryprionHash { get; set; }
 

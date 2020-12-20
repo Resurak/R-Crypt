@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
 using Microsoft.Win32;
+using System.Windows.Media;
 
 namespace R_Crypt.ViewModels
 {
@@ -25,6 +26,9 @@ namespace R_Crypt.ViewModels
         public MainWindowVM()
         {
             CryptoFiles = new();
+
+            SelectedMode = CryptMode.Encrypt;
+
             AddFilesCommand = new RelayCommand(param => AddFilesEvent(param));
             EncryptCommand = new RelayCommand(param => EncryptCommandEvent(param));
             DecryptCommand = new RelayCommand(param => DecryptCommandEvent(param));
@@ -33,17 +37,17 @@ namespace R_Crypt.ViewModels
 
         private void OptionsCommandEvent(object param)
         {
-            throw new NotImplementedException();
+
         }
 
         private void DecryptCommandEvent(object param)
         {
-            throw new NotImplementedException();
+            SelectedMode = CryptMode.Decrypt;
         }
 
         private void EncryptCommandEvent(object param)
         {
-            throw new NotImplementedException();
+            SelectedMode = CryptMode.Encrypt;
         }
 
         private void AddFilesEvent(object param)
@@ -60,8 +64,44 @@ namespace R_Crypt.ViewModels
             }
         }
 
+        public Visibility DragAndDropGridVisibility { get => _DragAndDropGridVisibility; set { _DragAndDropGridVisibility = value; Notify(); } }
+        private Visibility _DragAndDropGridVisibility = Visibility.Visible;
+
+
+        public CryptMode SelectedMode { get => _SelectedMode; set { _SelectedMode = value; RefreshSelectMode(); } }
+        private CryptMode _SelectedMode = new();
+
+        public string SelectedModeText { get => _SelectedModeText; set { _SelectedModeText = value; Notify(); } }
+        private string _SelectedModeText = "";
+
+
         public ObservableCollection<CryptoFile> CryptoFiles { get => _CryptoFiles; set { _CryptoFiles = value; Notify(); } }
         private ObservableCollection<CryptoFile> _CryptoFiles = new();
+
+
+        public string TotalFilesSize { get => _TotalFilesSize; set { _TotalFilesSize = value; Notify(); } }
+        private string _TotalFilesSize = "";
+
+        public string TotalProcessedBytesString { get => _TotalProcessedBytesString; set { _TotalProcessedBytesString = value; Notify(); } }
+        private string _TotalProcessedBytesString = "-- B / -- B";
+
+        public string CurrentProcessedBytesString { get => _CurrentProcessedBytesString; set { _CurrentProcessedBytesString = value; Notify(); } }
+        private string _CurrentProcessedBytesString = "";
+
+        //public Visibility ProgressVisProgressBox { get => _ProgressVisibilityProgressBox; set { _ProgressVisibilityProgressBox = value; Notify(); } }
+        //private Visibility _ProgressVisibilityProgressBox = Visibility.Hidden;
+
+        //public Visibility ProgressVisTextBlock { get => _ProgressVisTextBlock; set { _ProgressVisTextBlock = value; Notify(); } }
+        //private Visibility _ProgressVisTextBlock = Visibility.Visible;
+
+
+        public SolidColorBrush TooLargeFeedbackColor { get => _TooLargeFeedbackColor; set { _TooLargeFeedbackColor = value; Notify(); } }
+        private SolidColorBrush _TooLargeFeedbackColor = new SolidColorBrush(Colors.Lime);
+
+        SolidColorBrush yellow = new SolidColorBrush(Colors.Yellow);
+        SolidColorBrush red = new SolidColorBrush(Colors.Red);
+
+
 
         public void AddFilesToList(string[] files)
         {
@@ -78,6 +118,43 @@ namespace R_Crypt.ViewModels
 
             CryptoFiles = 
                 new ObservableCollection<CryptoFile>(orderedByFolder.Concat(orderedByType).ToList());
+
+            long tempSize = 0;
+            CurrentProcessedBytesString = tempSize.ConvertLongByteToString();
+
+            foreach (var file in CryptoFiles) 
+                tempSize += file.FileSize;
+
+            TotalFilesSize = tempSize.ConvertLongByteToString();
+
+            if (tempSize >= 104857600 && tempSize < 1073741824)
+                TooLargeFeedbackColor = yellow;
+
+            else if (tempSize >= 1073741824)
+                TooLargeFeedbackColor = red;
+
+            TotalProcessedBytesString = $"{CurrentProcessedBytesString} / {TotalFilesSize}";
+
+            CheckIfListHasFile();
         } 
+
+        private void CheckIfListHasFile()
+        {
+            if (CryptoFiles.Count > 0) DragAndDropGridVisibility = Visibility.Collapsed;
+        }
+
+        private void RefreshSelectMode()
+        {
+            if (SelectedMode == CryptMode.Encrypt)
+            {
+                SelectedModeText = "Encrypt";
+            }
+            else if (SelectedMode == CryptMode.Decrypt)
+            {
+                SelectedModeText = "Decrypt";
+            }
+        }
+
+        public enum CryptMode { Encrypt, Decrypt }
     }
 }

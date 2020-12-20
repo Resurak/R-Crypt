@@ -33,5 +33,10 @@ namespace R_Crypt.Views
                 (DataContext as MainWindowVM).AddFilesToList((string[])e.Data.GetData(DataFormats.FileDrop));
             }
         }
+
+        private void DataGrid_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
