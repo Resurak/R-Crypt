@@ -88,11 +88,6 @@ namespace R_Crypt.ViewModels
         public string CurrentProcessedBytesString { get => _CurrentProcessedBytesString; set { _CurrentProcessedBytesString = value; Notify(); } }
         private string _CurrentProcessedBytesString = "";
 
-        //public Visibility ProgressVisProgressBox { get => _ProgressVisibilityProgressBox; set { _ProgressVisibilityProgressBox = value; Notify(); } }
-        //private Visibility _ProgressVisibilityProgressBox = Visibility.Hidden;
-
-        //public Visibility ProgressVisTextBlock { get => _ProgressVisTextBlock; set { _ProgressVisTextBlock = value; Notify(); } }
-        //private Visibility _ProgressVisTextBlock = Visibility.Visible;
 
 
         public SolidColorBrush TooLargeFeedbackColor { get => _TooLargeFeedbackColor; set { _TooLargeFeedbackColor = value; Notify(); } }
@@ -138,9 +133,16 @@ namespace R_Crypt.ViewModels
             CheckIfListHasFile();
         } 
 
+        public void RemoveFileFromList(List<CryptoFile> files)
+        {
+            foreach (var file in files)
+                CryptoFiles.Remove(file);
+        }
+
         private void CheckIfListHasFile()
         {
-            if (CryptoFiles.Count > 0) DragAndDropGridVisibility = Visibility.Collapsed;
+            if (CryptoFiles.Count > 0) 
+                DragAndDropGridVisibility = Visibility.Collapsed;
         }
 
         private void RefreshSelectMode()

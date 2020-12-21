@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using R_Crypt.Models.Serializable;
 using R_Crypt.ViewModels;
 
 namespace R_Crypt.Views
@@ -37,6 +38,22 @@ namespace R_Crypt.Views
         private void DataGrid_PreviewDragOver(object sender, DragEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (FileList.HasItems && FileList.SelectedItems.Count > 0)
+            {
+                if (e.Key == Key.Delete)
+                {
+                    List<CryptoFile> files = new();
+
+                    foreach (var file in FileList.SelectedItems)
+                        files.Add((CryptoFile)file);
+
+                    (DataContext as MainWindowVM).RemoveFileFromList(files);
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R_Crypt.Views"
         xmlns:vm="clr-namespace:R_Crypt.ViewModels"
-        xmlns:uc="clr-namespace:R_Crypt.UserControls.Views"
+        xmlns:uc="clr-namespace:R_Crypt.UserControls.Views" PreviewKeyDown="Window_PreviewKeyDown"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="R-Crypt" Height="600" MinHeight="450" Width="700" MinWidth="700">
     <Window.DataContext>
@@ -86,7 +86,7 @@
                     <TextBlock Text="Drag and Drop files here" Foreground="White" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" AllowDrop="True" Drop="DataGrid_PreviewDrop" Background="Transparent"/>
                 </Grid>
                 
-                <DataGrid ItemsSource="{Binding CryptoFiles}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
+                <DataGrid x:Name="FileList" ItemsSource="{Binding CryptoFiles}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden" PreviewDragOver="DataGrid_PreviewDragOver" PreviewDrop="DataGrid_PreviewDrop"
                               BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True" ColumnHeaderStyle="{DynamicResource BaseHeaderStyle}">
