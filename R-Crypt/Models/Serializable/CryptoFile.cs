@@ -10,10 +10,11 @@ using R_Crypt.Common.Utils;
 using System.Drawing;
 using System.Windows.Media;
 using System.Reflection;
+using R_Crypt.ViewModels.Base;
 
 namespace R_Crypt.Models.Serializable
 {
-    public class CryptoFile
+    public class CryptoFile : BaseVM
     {
         public CryptoFile()
         {
@@ -67,33 +68,80 @@ namespace R_Crypt.Models.Serializable
                 Tooltip = $"Error. Cannot get {Path}. Probably need admin privileges";
                 Error = true;
             }
-        } 
+        }
 
-        public string Path { get; set; }
-        public string PathText { get; set; }
+        public string Path { get => path; set { path = value; Notify(); } }
+        private string path;
 
-        public ImageSource Icon { get; set; } 
+        public string PathText { get => pathText; set { pathText = value; Notify(); } }
+        private string pathText;
 
-        public bool IsFolder { get; set; }
 
-        public string FileExtension { get; set; }
-        public string FileTypeText { get; set; }
+        public ImageSource Icon { get => icon; set { icon = value; Notify(); } }
+        private ImageSource icon;
 
-        public long FileSize { get; set; }
-        public string TotalBytesString { get; set; }
 
-        public string Tooltip { get; set; }
+        public bool IsFolder { get => isFolder; set { isFolder = value; Notify(); } }
+        private bool isFolder;
 
-        public double ProcessedBytes { get; set; }
-        public string ProgressText { get; set; }
+        public string FileExtension { get => fileExtension; set { fileExtension = value; Notify(); } }
+        private string fileExtension;
 
-        public string BeforeEncryptionHash { get; set; }
-        public string AfterEncryprionHash { get; set; }
+        public string FileTypeText { get => fileTypeText; set { fileTypeText = value; Notify(); } }
+        private string fileTypeText;
 
-        public Visibility ProgressBarVis { get; set; }
-        public Visibility TextProgressVis { get; set; }
 
-        public bool Error { get; set; }
+        public long FileSize { get => fileSize; set { fileSize = value; Notify(); } }
+        private long fileSize;
+
+        public string TotalBytesString { get => totalBytesString; set { totalBytesString = value; Notify(); } }
+        private string totalBytesString;
+
+
+        public string Tooltip { get => tooltip; set { tooltip = value; Notify(); } }
+        private string tooltip;
+
+
+        public long ProcessedBytes { get => processedBytes; set { processedBytes = value; Notify(); } }
+        private long processedBytes;
+
+        public string ProgressText { get => progressText; set { progressText = value; Notify(); } }
+        private string progressText;
+
+
+        public string BeforeEncryptionHash { get => beforeEncryptionHash; set { beforeEncryptionHash = value; Notify(); } }
+        private string beforeEncryptionHash;
+
+        public string AfterEncryprionHash { get => afterEncryprionHash; set { afterEncryprionHash = value; Notify(); } }
+        private string afterEncryprionHash;
+
+
+        public Visibility ProgressBarVis { get => progressBarVis; set { progressBarVis = value; Notify(); } }
+        private Visibility progressBarVis;
+
+        public Visibility TextProgressVis { get => textProgressVis; set { textProgressVis = value; Notify(); } }
+        private Visibility textProgressVis;
+
+
+        public bool Error { get => error; set { error = value; Notify(); } }
+        private bool error;
+
         private string startText = "Waiting input...";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

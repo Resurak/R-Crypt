@@ -124,7 +124,7 @@
                                 <DataTemplate>
                                     <Grid>
                                         <TextBlock Text="{Binding ProgressText}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding TextProgressVis}"/>
-                                        <ProgressBar Margin="0,0,10,0" Value="{Binding ProcessedBytes}" VerticalAlignment="Center" Maximum="100" Height="15" Minimum="0" Visibility="{Binding ProgressBarVis}"/>
+                                        <ProgressBar Margin="0,0,10,0" Value="{Binding ProcessedBytes}" VerticalAlignment="Center" Maximum="{Binding FileSize}" Height="15" Minimum="-1" Visibility="{Binding ProgressBarVis}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -151,7 +151,7 @@
                         <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                    <Button Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Command="{Binding StartCryptProcessCommand}">
                         <TextBlock Text="Start" FontSize="14"/>
                     </Button>
 
@@ -176,7 +176,7 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Total Progress" FontSize="14" Foreground="Wheat" HorizontalAlignment="Center"/>
                             <Separator Height="10" Opacity="0"/>
-                            <ProgressBar Height="25" HorizontalAlignment="Stretch" Margin="20,0"/>
+                            <ProgressBar Height="25" HorizontalAlignment="Stretch" Margin="20,0" Maximum="{Binding Long_TotalFilesSize}" Value="{Binding Long_CurrentFilesSize}" Minimum="-1"/>
                         </StackPanel>
                         
                     </DockPanel>
