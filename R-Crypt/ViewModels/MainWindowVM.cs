@@ -16,16 +16,17 @@ using System.Windows.Media;
 using R_Crypt.Crypt;
 using System.ComponentModel;
 using System.Windows.Data;
+using R_Crypt.Common;
 
 namespace R_Crypt.ViewModels
 {
     public class MainWindowVM : BaseVM
     {
-        public RelayCommand EncryptCommand { get; private set; }
-        public RelayCommand DecryptCommand { get; private set; }
-        public RelayCommand OptionsCommand { get; private set; }
-        public RelayCommand AddFilesCommand { get; private set; }
-        public RelayCommand StartCryptProcessCommand { get; private set; }
+        public RelayCommand CMD_Encrypt { get; private set; }
+        public RelayCommand CMD_Decrypt { get; private set; }
+        public RelayCommand CMD_Options { get; private set; }
+        public RelayCommand CMD_AddFiles { get; private set; }
+        public RelayCommand CMD_StartCrypt { get; private set; }
 
         public MainWindowVM()
         {
@@ -33,27 +34,14 @@ namespace R_Crypt.ViewModels
 
             SelectedMode = CryptMode.Encrypt;
 
-            AddFilesCommand = new RelayCommand(param => AddFilesEvent(param));
-            EncryptCommand = new RelayCommand(param => EncryptCommandEvent(param));
-            DecryptCommand = new RelayCommand(param => DecryptCommandEvent(param));
-            OptionsCommand = new RelayCommand(param => OptionsCommandEvent(param));
-            StartCryptProcessCommand = new RelayCommand(param => StartCryptProcessCommandEvent(param));
-
-            //BindingOperations.EnableCollectionSynchronization(CryptoFiles, _collectionLock);
+            CMD_AddFiles = new RelayCommand(param => CMD_AddFilesEvent(param));
+            CMD_Encrypt = new RelayCommand(param => CMD_EncryptEvent(param));
+            CMD_Decrypt = new RelayCommand(param => CMD_DecryptEvent(param));
+            CMD_Options = new RelayCommand(param => CMD_OptionsEvent(param));
+            CMD_StartCrypt = new RelayCommand(param => CMD_StartEvent(param));
         }
 
-        private void OnProgressChanged()
-        {
-            //long totalProcessed = 0;
-            //foreach (var file in CryptoFiles)
-            //    totalProcessed += file.ProcessedBytes;
-
-            UpdateUI();
-
-            TotalProcessedBytesString = $"{CurrentProcessedBytesString} / {TotalFilesSize}";
-        }
-
-        private void StartCryptProcessCommandEvent(object param)
+        private void CMD_StartEvent(object param)
         {
             if (SelectedMode == CryptMode.Encrypt)
             {
@@ -62,27 +50,27 @@ namespace R_Crypt.ViewModels
                     int index = 0;
                     foreach (var file in CryptoFiles)
                     {
-                        if (!file.IsFolder)
+                        if (!file.Bool_IsFolder)
                         {
                             BackgroundWorker worker = new();
                             worker.DoWork += (sender, e) =>
                             {
-                                file.ProgressBarVis = Visibility.Visible;
-                                file.TextProgressVis = Visibility.Hidden;
+                                file.Vis_ProgressBar = Visibility.Visible;
+                                file.Vis_TextBlock = Visibility.Hidden;
 
                                 CryptHandler cryptHandler = new();
                                 cryptHandler.CryptProgressChanged += (sender, e) =>
                                 {
-                                    file.ProcessedBytes = e.CurrentByte;
-                                    OnProgressChanged();
+                                    file.Long_ProcessedSize = e.CurrentByte;
+                                    UpdateUI();
                                 };
                                 cryptHandler.CryptCompleted += (sender, e) =>
                                 {
-                                    file.ProgressText = "Encrypted";
-                                    file.ProgressBarVis = Visibility.Hidden;
-                                    file.TextProgressVis = Visibility.Visible;
+                                    file.Str_ProgressTracker = "Encrypted";
+                                    file.Vis_ProgressBar = Visibility.Hidden;
+                                    file.Vis_TextBlock = Visibility.Visible;
                                 };
-                                cryptHandler.EncryptFileAsync("prova", file.Path);
+                                cryptHandler.EncryptFileAsync("prova", file.Str_Path);
                             };
                             worker.RunWorkerAsync();
                             index++;
@@ -92,22 +80,22 @@ namespace R_Crypt.ViewModels
             }
         }
 
-        private void OptionsCommandEvent(object param)
+        private void CMD_OptionsEvent(object param)
         {
 
         }
 
-        private void DecryptCommandEvent(object param)
+        private void CMD_DecryptEvent(object param)
         {
             SelectedMode = CryptMode.Decrypt;
         }
 
-        private void EncryptCommandEvent(object param)
+        private void CMD_EncryptEvent(object param)
         {
             SelectedMode = CryptMode.Encrypt;
         }
 
-        private void AddFilesEvent(object param)
+        private void CMD_AddFilesEvent(object param)
         {
             OpenFileDialog fileDialog = new();
             fileDialog.CheckFileExists = true;
@@ -117,46 +105,44 @@ namespace R_Crypt.ViewModels
             if (fileDialog.ShowDialog() == true)
             {
                 foreach (var file in fileDialog.FileNames)
-                    CryptoFiles.Add(new CryptoFile(file));
+                    CryptoFiles.Add(file.GetCryptoFile());
             }
         }
 
-        private object _collectionLock = new object();
-
-        public Visibility DragAndDropGridVisibility { get => _DragAndDropGridVisibility; set { _DragAndDropGridVisibility = value; Notify(); } }
-        private Visibility _DragAndDropGridVisibility = Visibility.Visible;
+        public Visibility Vis_DragAndDropGrid { get => _Vis_DragAndDropGrid; set { _Vis_DragAndDropGrid = value; Notify(); } }
+        private Visibility _Vis_DragAndDropGrid = Visibility.Visible;
 
 
         public CryptMode SelectedMode { get => _SelectedMode; set { _SelectedMode = value; RefreshSelectMode(); } }
         private CryptMode _SelectedMode = new();
 
-        public string SelectedModeText { get => _SelectedModeText; set { _SelectedModeText = value; Notify(); } }
-        private string _SelectedModeText = "";
+        public string Str_SelectedModeText { get => _Str_SelectedModeText; set { _Str_SelectedModeText = value; Notify(); } }
+        private string _Str_SelectedModeText = "";
 
 
         public ObservableCollection<CryptoFile> CryptoFiles { get => _CryptoFiles; set { _CryptoFiles = value; Notify(); } }
         private ObservableCollection<CryptoFile> _CryptoFiles = new AsyncObservableCollection<CryptoFile>();
 
 
-        public string TotalFilesSize { get => _TotalFilesSize; set { _TotalFilesSize = value; Notify(); } }
-        private string _TotalFilesSize = "";
+        public string Str_TotalSize { get => _Str_TotalSize; set { _Str_TotalSize = value; Notify(); } }
+        private string _Str_TotalSize = "";
 
-        public string TotalProcessedBytesString { get => _TotalProcessedBytesString; set { _TotalProcessedBytesString = value; Notify(); } }
-        private string _TotalProcessedBytesString = "";
+        public string Str_TotalProcessedSize { get => _Str_TotalProcessedSize; set { _Str_TotalProcessedSize = value; Notify(); } }
+        private string _Str_TotalProcessedSize = "";
 
-        public string CurrentProcessedBytesString { get => _CurrentProcessedBytesString; set { _CurrentProcessedBytesString = value; Notify(); } }
-        private string _CurrentProcessedBytesString = "";
-
-
-        public long Long_TotalFilesSize { get => long_TotalFilesSize; set { long_TotalFilesSize = value; Notify(); } }
-        private long long_TotalFilesSize = 0;
-
-        public long Long_CurrentFilesSize { get => long_CurrentFilesSize; set { long_CurrentFilesSize = value; Notify(); } }
-        private long long_CurrentFilesSize = -1;
+        public string Str_CurrentProcessedSize { get => _Str_CurrentProcessedSize; set { _Str_CurrentProcessedSize = value; Notify(); } }
+        private string _Str_CurrentProcessedSize = "";
 
 
-        public SolidColorBrush TooLargeFeedbackColor { get => _TooLargeFeedbackColor; set { _TooLargeFeedbackColor = value; Notify(); } }
-        private SolidColorBrush _TooLargeFeedbackColor = new SolidColorBrush(Colors.Lime);
+        public long Long_TotalSize { get => _Long_TotalSize; set { _Long_TotalSize = value; Notify(); } }
+        private long _Long_TotalSize = 0;
+
+        public long Long_CurrentProcessedSize { get => _Long_CurrentProcessedSize; set { _Long_CurrentProcessedSize = value; Notify(); } }
+        private long _Long_CurrentProcessedSize = -1;
+
+
+        public SolidColorBrush Color_SizeFeedback { get => _Color_SizeFeedback; set { _Color_SizeFeedback = value; Notify(); } }
+        private SolidColorBrush _Color_SizeFeedback = new SolidColorBrush(Colors.Lime);
 
         SolidColorBrush yellow = new SolidColorBrush(Colors.Yellow);
         SolidColorBrush red = new SolidColorBrush(Colors.Red);
@@ -166,40 +152,19 @@ namespace R_Crypt.ViewModels
         {
             foreach (var file in files)
             {
-                CryptoFiles.Add(new CryptoFile(file));
+                CryptoFiles.Add(file.GetCryptoFile());
             }
 
             ObservableCollection<CryptoFile> orderedByFolder =
-                new ObservableCollection<CryptoFile>(CryptoFiles.Where(folder => folder.IsFolder == true).OrderBy(folder => folder.PathText).ToList());
+                new ObservableCollection<CryptoFile>(CryptoFiles.Where(folder => folder.Bool_IsFolder == true).OrderBy(folder => folder.Str_FileName).ToList());
 
             ObservableCollection<CryptoFile> orderedByType =
-                new ObservableCollection<CryptoFile>(CryptoFiles.Where(file => file.IsFolder == false).OrderBy(file => file.PathText).OrderBy(file => file.FileTypeText).ToList());
+                new ObservableCollection<CryptoFile>(CryptoFiles.Where(file => file.Bool_IsFolder == false).OrderBy(file => file.Str_FileName).OrderBy(file => file.Str_FileType).ToList());
 
             CryptoFiles =
                 new ObservableCollection<CryptoFile>(orderedByFolder.Concat(orderedByType).ToList());
 
-            //long tempSize = 0;
-
-            //CurrentProcessedBytesString = tempSize.ConvertLongByteToString();
-            //Long_CurrentFilesSize = tempSize;
-
-            //foreach (var file in CryptoFiles)
-            //    tempSize += file.FileSize;
-
-            //TotalFilesSize = tempSize.ConvertLongByteToString();
-            //Long_TotalFilesSize = tempSize;
-
-            //if (tempSize >= 104857600 && tempSize < 1073741824)
-            //    TooLargeFeedbackColor = yellow;
-
-            //else if (tempSize >= 1073741824)
-            //    TooLargeFeedbackColor = red;
-
             UpdateUI();
-
-            TotalProcessedBytesString = $"{CurrentProcessedBytesString} / {TotalFilesSize}";
-
-            CheckIfListHasFile();
         }
 
         public void RemoveFileFromList(List<CryptoFile> files)
@@ -208,33 +173,25 @@ namespace R_Crypt.ViewModels
                 CryptoFiles.Remove(file);
 
             UpdateUI();
-
-            //long zero = 0;
-
-            //TotalFilesSize = zero.ConvertLongByteToString();
-            //TotalProcessedBytesString = zero.ConvertLongByteToString();
-        }
-
-        private void CheckIfListHasFile()
-        {
-            if (CryptoFiles.Count > 0)
-                DragAndDropGridVisibility = Visibility.Collapsed;
         }
 
         private void RefreshSelectMode()
         {
             if (SelectedMode == CryptMode.Encrypt)
             {
-                SelectedModeText = "Encrypt";
+                _Str_SelectedModeText = "Encrypt";
             }
             else if (SelectedMode == CryptMode.Decrypt)
             {
-                SelectedModeText = "Decrypt";
+                _Str_SelectedModeText = "Decrypt";
             }
         }
 
         private void UpdateUI()
         {
+            if (CryptoFiles.Count > 0)
+                Vis_DragAndDropGrid = Visibility.Collapsed;
+
             long tempSize = 0;
             long currentSize = 0;
 
@@ -242,30 +199,32 @@ namespace R_Crypt.ViewModels
             {
                 foreach (var file in CryptoFiles)
                 {
-                    tempSize += file.FileSize;
-                    currentSize += file.ProcessedBytes;
+                    tempSize += file.Long_FileSize;
+                    currentSize += file.Long_ProcessedSize;
                 }
 
-                CurrentProcessedBytesString = currentSize.ConvertLongByteToString();
-                Long_CurrentFilesSize = currentSize;
+                Str_CurrentProcessedSize = currentSize.ConvertLongByteToString();
+                Long_CurrentProcessedSize = currentSize;
 
-                TotalFilesSize = tempSize.ConvertLongByteToString();
-                Long_TotalFilesSize = tempSize;
+                Str_TotalSize = tempSize.ConvertLongByteToString();
+                Long_TotalSize = tempSize;
 
                 if (tempSize >= 104857600 && tempSize < 1073741824)
-                    TooLargeFeedbackColor = yellow;
+                    Color_SizeFeedback = yellow;
 
                 else if (tempSize >= 1073741824)
-                    TooLargeFeedbackColor = red;
+                    Color_SizeFeedback = red;
             }
             else
             {
-                CurrentProcessedBytesString = tempSize.ConvertLongByteToString();
-                Long_CurrentFilesSize = tempSize;
+                Str_CurrentProcessedSize = tempSize.ConvertLongByteToString();
+                Long_CurrentProcessedSize = tempSize;
 
-                TotalFilesSize = tempSize.ConvertLongByteToString();
-                Long_TotalFilesSize = tempSize;
+                Str_TotalSize = tempSize.ConvertLongByteToString();
+                Long_TotalSize = tempSize;
             }
+
+            Str_TotalProcessedSize = $"{Str_CurrentProcessedSize} / {Str_TotalSize}"; 
         }
 
         public enum CryptMode { Encrypt, Decrypt }

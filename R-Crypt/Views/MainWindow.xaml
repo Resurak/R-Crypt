@@ -56,21 +56,21 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="Selected method: " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="White" Margin="20,0,0,0"/>
-                        <TextBlock Grid.Column="1" Text="{Binding SelectedModeText}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="Lime" Margin="5,0"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Str_SelectedModeText}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="Lime" Margin="5,0"/>
 
                     </Grid>
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
-                        <Button x:Name="AddFilesBtn" Width="80" Height="40" Margin="10,0" ToolTip="Select files to add" Command="{Binding AddFilesCommand}">
+                        <Button x:Name="AddFilesBtn" Width="80" Height="40" Margin="10,0" ToolTip="Select files to add" Command="{Binding CMD_AddFiles}">
                             <TextBlock Text="Add Files" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Button>
-                        <Button x:Name="LockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Encrypt" Command="{Binding EncryptCommand}">
+                        <Button x:Name="LockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Encrypt" Command="{Binding CMD_Encrypt}">
                             <Image Source="/Resources/padlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                         </Button>
-                        <Button x:Name="UnlockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Decrypt" Command="{Binding DecryptCommand}">
+                        <Button x:Name="UnlockBtn" Width="40" Height="40" Margin="10,0" ToolTip="Decrypt" Command="{Binding CMD_Decrypt}">
                             <Image Source="/Resources/unlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                         </Button>
-                        <Button x:Name="OptionsBtn" Width="40" Height="40" Margin="10,0" ToolTip="Options" Command="{Binding OptionsCommand}">
+                        <Button x:Name="OptionsBtn" Width="40" Height="40" Margin="10,0" ToolTip="Options" Command="{Binding CMD_Options}">
                             <Image Source="/Resources/gears.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                         </Button>
                     </StackPanel>
@@ -80,7 +80,7 @@
                     <TextBlock Text="List of files" Margin="20,5" FontSize="14" Foreground="Wheat"/>
                 </Grid>
 
-                <Grid Margin="10,60,10,10" Grid.Row="1" Panel.ZIndex="2" AllowDrop="True" Drop="DataGrid_PreviewDrop" Visibility="{Binding DragAndDropGridVisibility}">
+                <Grid Margin="10,60,10,10" Grid.Row="1" Panel.ZIndex="2" AllowDrop="True" Drop="DataGrid_PreviewDrop" Visibility="{Binding Vis_DragAndDropGrid}">
                     <Border CornerRadius="15" Margin="15" BorderThickness="1" BorderBrush="AliceBlue" AllowDrop="True" Drop="DataGrid_PreviewDrop"/>
                     <Border CornerRadius="15" Margin="20" BorderThickness="1" BorderBrush="AliceBlue" AllowDrop="True" Drop="DataGrid_PreviewDrop"/>
                     <TextBlock Text="Drag and Drop files here" Foreground="White" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" AllowDrop="True" Drop="DataGrid_PreviewDrop" Background="Transparent"/>
@@ -97,7 +97,7 @@
                                 <DataTemplate>
                                     <DockPanel LastChildFill="True">
                                         <Image Source="{Binding Icon}" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
-                                        <TextBlock Text="{Binding PathText}" Margin="10,0" ToolTip="{Binding Tooltip}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Str_FileName}" Margin="10,0" ToolTip="{Binding Tooltip}" VerticalAlignment="Center"/>
                                     </DockPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -106,7 +106,7 @@
                         <DataGridTemplateColumn Width="auto" MinWidth="80" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Type">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding FileTypeText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Str_FileType}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -114,7 +114,7 @@
                         <DataGridTemplateColumn Width="100" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Size">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding TotalBytesString}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Str_FileSize}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -123,8 +123,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid>
-                                        <TextBlock Text="{Binding ProgressText}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding TextProgressVis}"/>
-                                        <ProgressBar Margin="0,0,10,0" Value="{Binding ProcessedBytes}" VerticalAlignment="Center" Maximum="{Binding FileSize}" Height="15" Minimum="-1" Visibility="{Binding ProgressBarVis}"/>
+                                        <TextBlock Text="{Binding Str_ProgressTracker}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Vis_TextBlock}"/>
+                                        <ProgressBar Margin="0,0,10,0" Value="{Binding Long_ProcessedSize}" VerticalAlignment="Center" Maximum="{Binding Long_FileSize}" Height="15" Minimum="-1" Visibility="{Binding Vis_ProgressBar}"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -151,7 +151,7 @@
                         <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Command="{Binding StartCryptProcessCommand}">
+                    <Button Width="100" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Command="{Binding CMD_StartCrypt}">
                         <TextBlock Text="Start" FontSize="14"/>
                     </Button>
 
@@ -161,14 +161,14 @@
                             
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="Total Size" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Wheat"/>
-                                <TextBlock Text="{Binding TotalFilesSize}" Foreground="{Binding TooLargeFeedbackColor}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                                <TextBlock Text="{Binding Str_TotalSize}" Foreground="{Binding Color_SizeFeedback}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
                             </StackPanel>
                             
                             <Separator Width="20" Opacity="0"/>
                             
                             <StackPanel Orientation="Vertical" Width="150">
                                 <TextBlock Text="Processed" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Wheat"/>
-                                <TextBlock Text="{Binding TotalProcessedBytesString}" Foreground="Lime" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                                <TextBlock Text="{Binding Str_TotalProcessedSize}" Foreground="Lime" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
                             </StackPanel>
                             
                         </StackPanel>
@@ -176,7 +176,7 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Total Progress" FontSize="14" Foreground="Wheat" HorizontalAlignment="Center"/>
                             <Separator Height="10" Opacity="0"/>
-                            <ProgressBar Height="25" HorizontalAlignment="Stretch" Margin="20,0" Maximum="{Binding Long_TotalFilesSize}" Value="{Binding Long_CurrentFilesSize}" Minimum="-1"/>
+                            <ProgressBar Height="25" HorizontalAlignment="Stretch" Margin="20,0" Maximum="{Binding Long_TotalSize}" Value="{Binding Long_CurrentProcessedSize}" Minimum="-1"/>
                         </StackPanel>
                         
                     </DockPanel>

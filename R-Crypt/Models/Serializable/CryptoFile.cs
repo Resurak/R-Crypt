@@ -21,127 +21,60 @@ namespace R_Crypt.Models.Serializable
 
         }
 
-        public CryptoFile(string file)
-        {
-            if (file.CheckExist())
-            {
-                IsFolder = file.IsDirectoryOrFile();
+        public string Str_Path { get => _Str_Path; set { _Str_Path = value; Notify(); } }
+        private string _Str_Path;
 
-                Path = file;
-                PathText = Path.GetFileName();
-
-                Tooltip = $"Path of the file: {Path}";
-
-                if (IsFolder)
-                {
-                    Icon = new BitmapImage(new Uri(@"pack://application:,,,/"
-                        + Assembly.GetExecutingAssembly().GetName().Name
-                        + ";component/"
-                        + "Resources/folder.png", UriKind.Absolute));
-
-                    TotalBytesString = "";
-                    FileTypeText = "Folder";
-                }
-                else
-                {
-                    FileInfo info = new(file);
-
-                    FileSize = info.Length;
-
-                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(file);
-                    Icon = icon.ToImageSource();
-
-                    TotalBytesString = Path.GetSizeFromFilePath();
-                    FileExtension = Path.GetFileExtension();
-                    FileTypeText = FileExtension.GetExtensionType();
-                }
-
-                ProcessedBytes = 0;
-                ProgressText = startText;
-
-                ProgressBarVis = Visibility.Hidden;
-                TextProgressVis = Visibility.Visible;
-            }
-            else
-            {
-                PathText = "Error";
-                Tooltip = $"Error. Cannot get {Path}. Probably need admin privileges";
-                Error = true;
-            }
-        }
-
-        public string Path { get => path; set { path = value; Notify(); } }
-        private string path;
-
-        public string PathText { get => pathText; set { pathText = value; Notify(); } }
-        private string pathText;
+        public string Str_FileName { get => _Str_FileName; set { _Str_FileName = value; Notify(); } }
+        private string _Str_FileName;
 
 
         public ImageSource Icon { get => icon; set { icon = value; Notify(); } }
         private ImageSource icon;
 
 
-        public bool IsFolder { get => isFolder; set { isFolder = value; Notify(); } }
-        private bool isFolder;
+        public bool Bool_IsFolder { get => _Bool_IsFolder; set { _Bool_IsFolder = value; Notify(); } }
+        private bool _Bool_IsFolder;
 
-        public string FileExtension { get => fileExtension; set { fileExtension = value; Notify(); } }
-        private string fileExtension;
+        public string Str_FileExtension { get => _Str_FileExtension; set { _Str_FileExtension = value; Notify(); } }
+        private string _Str_FileExtension;
 
-        public string FileTypeText { get => fileTypeText; set { fileTypeText = value; Notify(); } }
-        private string fileTypeText;
+        public string Str_FileType { get => _Str_FileType; set { _Str_FileType = value; Notify(); } }
+        private string _Str_FileType;
 
 
-        public long FileSize { get => fileSize; set { fileSize = value; Notify(); } }
-        private long fileSize;
+        public long Long_FileSize { get => _Long_FileSize; set { _Long_FileSize = value; Notify(); } }
+        private long _Long_FileSize;
 
-        public string TotalBytesString { get => totalBytesString; set { totalBytesString = value; Notify(); } }
-        private string totalBytesString;
+        public string Str_FileSize { get => _Str_FileSize; set { _Str_FileSize = value; Notify(); } }
+        private string _Str_FileSize;
 
 
         public string Tooltip { get => tooltip; set { tooltip = value; Notify(); } }
         private string tooltip;
 
 
-        public long ProcessedBytes { get => processedBytes; set { processedBytes = value; Notify(); } }
-        private long processedBytes;
+        public long Long_ProcessedSize { get => _Long_ProcessedSize; set { _Long_ProcessedSize = value; Notify(); } }
+        private long _Long_ProcessedSize;
 
-        public string ProgressText { get => progressText; set { progressText = value; Notify(); } }
-        private string progressText;
-
-
-        public string BeforeEncryptionHash { get => beforeEncryptionHash; set { beforeEncryptionHash = value; Notify(); } }
-        private string beforeEncryptionHash;
-
-        public string AfterEncryprionHash { get => afterEncryprionHash; set { afterEncryprionHash = value; Notify(); } }
-        private string afterEncryprionHash;
+        public string Str_ProgressTracker { get => _Str_ProgressTracker; set { _Str_ProgressTracker = value; Notify(); } }
+        private string _Str_ProgressTracker;
 
 
-        public Visibility ProgressBarVis { get => progressBarVis; set { progressBarVis = value; Notify(); } }
-        private Visibility progressBarVis;
+        public string Str_BeforeEncryptionHash { get => _Str_BeforeEncryptionHash; set { _Str_BeforeEncryptionHash = value; Notify(); } }
+        private string _Str_BeforeEncryptionHash;
 
-        public Visibility TextProgressVis { get => textProgressVis; set { textProgressVis = value; Notify(); } }
-        private Visibility textProgressVis;
+        public string Str_AfterEncryprionHash { get => _Str_AfterEncryprionHash; set { _Str_AfterEncryprionHash = value; Notify(); } }
+        private string _Str_AfterEncryprionHash;
+
+
+        public Visibility Vis_ProgressBar { get => _Vis_ProgressBar; set { _Vis_ProgressBar = value; Notify(); } }
+        private Visibility _Vis_ProgressBar;
+
+        public Visibility Vis_TextBlock { get => _Vis_TextBlock; set { _Vis_TextBlock = value; Notify(); } }
+        private Visibility _Vis_TextBlock;
 
 
         public bool Error { get => error; set { error = value; Notify(); } }
         private bool error;
-
-        private string startText = "Waiting input...";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

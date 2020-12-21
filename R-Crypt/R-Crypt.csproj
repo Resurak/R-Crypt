@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ConfigHandler.cs" />
+    <Compile Include="Common\CryptoFilesHandler.cs" />
     <Compile Include="Common\Utils\AsyncObservableCollection.cs" />
     <Compile Include="Common\Utils\ExtensionType.cs" />
     <Compile Include="Models\ProgramBase.cs" />
