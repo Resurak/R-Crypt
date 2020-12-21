@@ -92,7 +92,8 @@ namespace R_Crypt.Common
             }
             else if (Startup == StartupType.NoUser)
             {
-                MainWindow mw = new();
+                //MainWindow mw = new();
+                CryptWindow mw = new();
                 Application.Current.MainWindow.Close();
                 Application.Current.MainWindow = mw;
                 mw.Show();

@@ -1,0 +1,131 @@
+﻿<Window x:Class="R_Crypt.Views.CryptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:R_Crypt.Views"
+        xmlns:vm="clr-namespace:R_Crypt.ViewModels"
+        xmlns:uc="clr-namespace:R_Crypt.UserControls.Views"
+        mc:Ignorable="d"
+        Title="CryptWindow" Height="600" Width="800">
+    <Window.DataContext>
+        <vm:CryptWindowVM/>
+    </Window.DataContext>
+    <Grid Background="{DynamicResource BackgroundWindowColor}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Background="{DynamicResource BackgroundDarkColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:LogoPanel/>
+
+                <Grid Grid.Column="1">
+                    
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,20">
+                        
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <TextBlock Text="Logged in as: " VerticalAlignment="Top" Margin="10,10" Foreground="White" FontSize="12"/>
+                            
+                            <Button VerticalAlignment="Top" Margin="0,0">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Resources/blank_user.png" Width="32" Height="32" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                        <TextBlock Margin="10,0" VerticalAlignment="Center" Text="General User"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                            
+                            <Separator Width="10" VerticalAlignment="Stretch" Opacity="0"/>
+                            
+                            <Button>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Resources/info.png" Width="32" Height="32" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                        <TextBlock Margin="5,0,10,0" VerticalAlignment="Center" Text="Help"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                            
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,0">
+                            <TextBlock Text="Program Version: " Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10"/>
+                            <TextBlock Text="0.12" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10"/>
+                        </StackPanel>
+                       
+                    </StackPanel>
+                </Grid>
+                
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Background="{DynamicResource BackgroundDarkColor}">
+                    <StackPanel Orientation="Vertical" Margin="0,30">
+
+                        <Button Width="100" Height="70">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Height="32" Width="32" Source="/Resources/home.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                <TextBlock Text="Home" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Height="20" Opacity="0"/>
+
+                        <Button Width="100" Height="70">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Height="32" Width="32" Source="/Resources/padlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                <TextBlock Text="Encrypt" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Height="20" Opacity="0"/>
+
+                        <Button Width="100" Height="70">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Height="32" Width="32" Source="/Resources/unlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                <TextBlock Text="Decrypt" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Height="20" Opacity="0"/>
+
+                        <Button Width="100" Height="70">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Height="32" Width="32" Source="/Resources/gears.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
+                                <TextBlock Text="Options" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Height="20" Opacity="0"/>
+
+                    </StackPanel>
+                    
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid x:Name="HomeGrid" Visibility="{Binding Vis_HomeGrid}">
+                        <TextBlock Text=" ciao  "/>
+                    </Grid>
+                </Grid>
+                
+            </Grid>
+            
+
+        </Grid>
+        
+    </Grid>
+</Window>

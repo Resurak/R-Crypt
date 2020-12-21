@@ -83,9 +83,13 @@
     <Compile Include="UserControls\Views\SpinningWheel.xaml.cs">
       <DependentUpon>SpinningWheel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CryptWindowVM.cs" />
     <Compile Include="ViewModels\FirstLoadWindowVM.cs" />
     <Compile Include="ViewModels\LoginWindowVM.cs" />
     <Compile Include="ViewModels\SplashScreenVM.cs" />
+    <Compile Include="Views\CryptWindow.xaml.cs">
+      <DependentUpon>CryptWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FirstLoadWindow.xaml.cs">
       <DependentUpon>FirstLoadWindow.xaml</DependentUpon>
     </Compile>
@@ -105,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Views\SpinningWheel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CryptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +202,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\home.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.0\build\Fody.targets')" />
