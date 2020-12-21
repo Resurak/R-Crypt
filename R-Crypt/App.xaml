@@ -15,6 +15,15 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
+        <Style x:Key="BaseRowSyle" TargetType="{x:Type DataGridRow}">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
         <Style x:Key="LeftHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseHeaderStyle}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="10,0,0,0"/>

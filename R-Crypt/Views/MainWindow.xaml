@@ -89,7 +89,7 @@
                 <DataGrid x:Name="FileList" ItemsSource="{Binding CryptoFiles}" Margin="10,30,10,10" RowHeaderWidth="0" Grid.Row="1"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                               GridLinesVisibility="None" IsReadOnly="True" VerticalScrollBarVisibility="Hidden" PreviewDragOver="DataGrid_PreviewDragOver" PreviewDrop="DataGrid_PreviewDrop"
-                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True" ColumnHeaderStyle="{DynamicResource BaseHeaderStyle}">
+                              BorderBrush="Black" Background="{DynamicResource BackgroundDarkColor}" AllowDrop="True" ColumnHeaderStyle="{DynamicResource BaseHeaderStyle}" RowStyle="{DynamicResource BaseRowSyle}">
                     <DataGrid.Columns>
                         
                         <DataGridTemplateColumn Width="*" HeaderStyle="{DynamicResource LeftHeaderStyle}" Header="File">
@@ -131,17 +131,6 @@
                         </DataGridTemplateColumn>
                         
                     </DataGrid.Columns>
-                    
-                    <DataGrid.RowStyle>
-                        <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="FontFamily" Value="Verdana"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="Background" Value="{DynamicResource BackgroundDarkColor}"/>
-                            <Setter Property="Height" Value="30"/>
-                            <Setter Property="Margin" Value="0,5,0,0"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.RowStyle>
                     
                 </DataGrid>
 
