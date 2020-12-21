@@ -14,6 +14,7 @@ using R_Crypt.ViewModels.Base;
 
 namespace R_Crypt.Models.Serializable
 {
+    [Serializable]
     public class CryptoFile : BaseVM
     {
         public CryptoFile()

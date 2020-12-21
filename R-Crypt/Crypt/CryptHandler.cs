@@ -57,14 +57,14 @@ namespace R_Crypt.Crypt
         {
             progress = new CryptProgress(path);
 
-            var salt = GenerateSalt(ProgramWideConfig.SaltSize);
-            var ivKey = GenerateSalt(ProgramWideConfig.IVKeySize);
+            var salt = GenerateSalt(ProgramWideConfig.Opt_Int_PassSaltSize);
+            var ivKey = GenerateSalt(ProgramWideConfig.Opt_Int_IVKeySize);
 
             OnStartingCrypt();
 
-            using (var saltedPassword = new Rfc2898DeriveBytes(pass, salt, ProgramWideConfig.RfcIterations))
+            using (var saltedPassword = new Rfc2898DeriveBytes(pass, salt, ProgramWideConfig.Opt_Int_RfcIterations))
             {
-                var saltedPasswordBytes = saltedPassword.GetBytes(ProgramWideConfig.SaltSize);
+                var saltedPasswordBytes = saltedPassword.GetBytes(ProgramWideConfig.Opt_Int_PassSaltSize);
                 await EncryptInternalAsync(saltedPasswordBytes, salt, ivKey, path);
             }
 
@@ -75,8 +75,8 @@ namespace R_Crypt.Crypt
         {
             progress = new CryptProgress(path);
 
-            var salt = new byte[ProgramWideConfig.SaltSize];
-            var ivKey = new byte[ProgramWideConfig.IVKeySize];
+            var salt = new byte[ProgramWideConfig.Opt_Int_PassSaltSize];
+            var ivKey = new byte[ProgramWideConfig.Opt_Int_IVKeySize];
 
             using (var streamFileToDecrypt = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -87,9 +87,9 @@ namespace R_Crypt.Crypt
 
             OnStartingCrypt();
 
-            using (var saltedPassword = new Rfc2898DeriveBytes(pass, salt, ProgramWideConfig.RfcIterations))
+            using (var saltedPassword = new Rfc2898DeriveBytes(pass, salt, ProgramWideConfig.Opt_Int_RfcIterations))
             {
-                var saltedPasswordBytes = saltedPassword.GetBytes(ProgramWideConfig.SaltSize);
+                var saltedPasswordBytes = saltedPassword.GetBytes(ProgramWideConfig.Opt_Int_PassSaltSize);
                 await DecryptInternalAsync(saltedPasswordBytes, ivKey, path);
             }
 
@@ -100,7 +100,7 @@ namespace R_Crypt.Crypt
         {
             string outputFile = fileToEncrypt + ProgramBase.Program_Extension;
 
-            using (var AES_Key = new RijndaelManaged { BlockSize = ProgramWideConfig.AES_KeySize, Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7 })
+            using (var AES_Key = new RijndaelManaged { BlockSize = ProgramWideConfig.Opt_Int_AESKeySize, Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7 })
             using (var encryptor = AES_Key.CreateEncryptor(saltedPass, ivKey))
             using (var streamEncryptedFile = new FileStream(fileToEncrypt, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var streamOutputFile = new FileStream(outputFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -143,7 +143,7 @@ namespace R_Crypt.Crypt
         {
             string fileOutput = fileToDecrypt.Replace(ProgramBase.Program_Extension, "");
 
-            using (var AES_Key = new RijndaelManaged { BlockSize = ProgramWideConfig.AES_KeySize, Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7 })
+            using (var AES_Key = new RijndaelManaged { BlockSize = ProgramWideConfig.Opt_Int_AESKeySize, Mode = CipherMode.CBC, Padding = PaddingMode.PKCS7 })
             using (var decryptor = AES_Key.CreateDecryptor(saltedPass, IVkey))
             using (var streamToDecrypt = new FileStream(fileToDecrypt, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var streamOutput = new FileStream(fileOutput, FileMode.OpenOrCreate, FileAccess.ReadWrite))
@@ -151,7 +151,7 @@ namespace R_Crypt.Crypt
             {
                 try
                 {
-                    streamToDecrypt.Seek((ProgramWideConfig.SaltSize + ProgramWideConfig.IVKeySize), SeekOrigin.Begin);
+                    streamToDecrypt.Seek((ProgramWideConfig.Opt_Int_PassSaltSize + ProgramWideConfig.Opt_Int_IVKeySize), SeekOrigin.Begin);
 
                     long remaining = progress.TotalByte;
 

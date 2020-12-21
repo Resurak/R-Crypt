@@ -35,33 +35,33 @@ namespace R_Crypt.Crypt.Base
         public long TotalByte { get; set; }
         public bool Completed { get; set; }
 
-        public string ProgressText
-        {
-            get
-            {
-                if (CurrentByte == 0 && TotalByte == 0) return "--B / --B";
-                if (TotalByte != 0)
-                {
-                    totalByteConverted = TotalByte.ByteConversion();
-                    totalByteUnit = TotalByte.GetByteUnit();
+        //public string ProgressText
+        //{
+        //    get
+        //    {
+        //        if (CurrentByte == 0 && TotalByte == 0) return "--B / --B";
+        //        if (TotalByte != 0)
+        //        {
+        //            totalByteConverted = TotalByte.ByteConversion();
+        //            totalByteUnit = TotalByte.GetByteUnit();
 
-                    currentByteConverted = CurrentByte.ByteConversion();
-                    currentByteUnit = CurrentByte.GetByteUnit();
+        //            currentByteConverted = CurrentByte.ByteConversion();
+        //            currentByteUnit = CurrentByte.GetByteUnit();
 
-                    return $"{Math.Round(currentByteConverted, 2)}{currentByteUnit} / {Math.Round(totalByteConverted, 2)}{totalByteUnit}";
-                }
-                else return "--B / --B";
-            }
-        }
+        //            return $"{Math.Round(currentByteConverted, 2)}{currentByteUnit} / {Math.Round(totalByteConverted, 2)}{totalByteUnit}";
+        //        }
+        //        else return "--B / --B";
+        //    }
+        //}
 
-        public string CompletedText
-        {
-            get
-            {
-                if (Completed) return "File cifrato con successo!";
-                else return "Cifrando il file";
-            }
-        }
+        //public string CompletedText
+        //{
+        //    get
+        //    {
+        //        if (Completed) return "File cifrato con successo!";
+        //        else return "Cifrando il file";
+        //    }
+        //}
 
         public string TotalTime { get => $"{TS_Total.Minutes}m : {TS_Total.Seconds}s"; }
         public string RemainingTime { get => $"{TS_Remaining.Minutes}m : {TS_Remaining.Seconds}s"; }

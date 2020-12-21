@@ -76,7 +76,7 @@
                 <Grid Background="{DynamicResource BackgroundDarkColor}">
                     <StackPanel Orientation="Vertical" Margin="0,30">
 
-                        <Button Width="100" Height="70">
+                        <Button Width="100" Height="70" Command="{Binding CMD_GoTo_Home}">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Height="32" Width="32" Source="/Resources/home.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                 <TextBlock Text="Home" Margin="0,5,0,0"/>
@@ -85,7 +85,7 @@
 
                         <Separator Height="20" Opacity="0"/>
 
-                        <Button Width="100" Height="70">
+                        <Button Width="100" Height="70" Command="{Binding CMD_GoTo_Encrypt}">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Height="32" Width="32" Source="/Resources/padlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                 <TextBlock Text="Encrypt" Margin="0,5,0,0"/>
@@ -94,7 +94,7 @@
 
                         <Separator Height="20" Opacity="0"/>
 
-                        <Button Width="100" Height="70">
+                        <Button Width="100" Height="70" Command="{Binding CMD_Goto_Decrypt}">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Height="32" Width="32" Source="/Resources/unlock.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                 <TextBlock Text="Decrypt" Margin="0,5,0,0"/>
@@ -103,7 +103,7 @@
 
                         <Separator Height="20" Opacity="0"/>
 
-                        <Button Width="100" Height="70">
+                        <Button Width="100" Height="70" Command="{Binding CMD_GoTo_Options}">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Height="32" Width="32" Source="/Resources/gears.png" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased"/>
                                 <TextBlock Text="Options" Margin="0,5,0,0"/>
@@ -148,31 +148,31 @@
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Total files encrypted: " Foreground="White"/>
-                                                <TextBlock Text="23" Margin="5,0,0,0" Foreground="Lime"/>
+                                                <TextBlock Text="{Binding Str_FilesEncrypted}" Margin="5,0,0,0" Foreground="Lime"/>
                                             </StackPanel>
 
                                             <Separator Height="5" Opacity="0"/>
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Total bytes encrypted: " Foreground="White"/>
-                                                <TextBlock Text="23 GB" Foreground="Lime"/>
+                                                <TextBlock Text="{Binding Str_TotalSizeEncrypted}" Foreground="Lime"/>
                                             </StackPanel>
 
                                             <Separator Height="5" Opacity="0"/>
 
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Biggets encrypted file size: " Foreground="White"/>
-                                                <TextBlock Text="5 GB" Margin="5,0,0,0" Foreground="Lime"/>
+                                                <TextBlock Text="Biggest encrypted file size: " Foreground="White"/>
+                                                <TextBlock Text="{Binding Str_BiggestSizeEncrypted}" Margin="5,0,0,0" Foreground="Lime"/>
                                             </StackPanel>
 
                                             <Separator Height="5" Opacity="0"/>
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Most encrypted file type: " Foreground="White"/>
-                                                <TextBlock Text="Audio" Foreground="Lime" Margin="5,0,0,0"/>
+                                                <TextBlock Text="{Binding Str_MostUsedType}" Foreground="Lime" Margin="5,0,0,0"/>
                                             </StackPanel>
 
-                                            <Separator Height="20" Opacity="0"/>
+                                            <Border BorderBrush="AliceBlue" HorizontalAlignment="Stretch" BorderThickness="1" Margin="10,15"/>
 
                                             <TextBlock Text="Decryption stats" Foreground="Wheat" FontSize="13"/>
 
@@ -180,17 +180,17 @@
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Total files decrypted: " Foreground="White"/>
-                                                <TextBlock Text="51" Foreground="Lime" Margin="5,0,0,0"/>
+                                                <TextBlock Text="{Binding Str_FilesDecrypted}" Foreground="Lime" Margin="5,0,0,0"/>
                                             </StackPanel>
 
                                             <Separator Height="5" Opacity="0"/>
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Total bytes decrypted" Foreground="White"/>
-                                                <TextBlock Text="12 GB" Foreground="Lime" Margin="5,0,0,0"/>
+                                                <TextBlock Text="{Binding Str_TotalSizeDecrypted}" Foreground="Lime" Margin="5,0,0,0"/>
                                             </StackPanel>
 
-                                            <Separator Height="20" Opacity="0"/>
+                                            <Border BorderBrush="AliceBlue" HorizontalAlignment="Stretch" BorderThickness="1" Margin="10,15"/>
 
                                             <TextBlock Text="Program stats" Foreground="Wheat" FontSize="13"/>
 
@@ -198,14 +198,14 @@
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Last time opened: " Foreground="White"/>
-                                                <TextBlock Text="21/12/2020 23:23" Foreground="Lime" Margin="5,0,0,0"/>
+                                                <TextBlock Text="{Binding Date_LastOpen}" Foreground="Lime" Margin="5,0,0,0"/>
                                             </StackPanel>
 
                                             <Separator Height="5" Opacity="0"/>
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Program version" Foreground="White"/>
-                                                <TextBlock Text="0.12" Foreground="Red" Margin="5,0,0,0"/>
+                                                <TextBlock Text="{Binding ProgramVersion}" Foreground="Red" Margin="5,0,0,0"/>
                                             </StackPanel>
                                             
                                         </StackPanel>

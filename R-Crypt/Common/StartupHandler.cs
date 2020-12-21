@@ -40,7 +40,7 @@ namespace R_Crypt.Common
                 {
                     ProgramWideConfig = ConfigHandler.DeserializeConfig(ProgramBase.ConfigFile_Path);
 
-                    if (ProgramWideConfig.NoUser) Startup = StartupType.NoUser;
+                    if (ProgramWideConfig.Opt_Bool_NoUser) Startup = StartupType.NoUser;
                     else Startup = StartupType.NoUser;
                 }
                 else
@@ -49,9 +49,9 @@ namespace R_Crypt.Common
                     Startup = StartupType.FirstTime;
                 }
 
-                if (string.IsNullOrWhiteSpace(ProgramWideConfig.ExePath))
+                if (string.IsNullOrWhiteSpace(ProgramWideConfig.Program_Str_ExePath))
                 {
-                    ProgramWideConfig.ExePath = ProgramBase.ExeFile_Path;
+                    ProgramWideConfig.Program_Str_ExePath = ProgramBase.ExeFile_Path;
                 }
 
                 Loaded = true;
@@ -67,16 +67,16 @@ namespace R_Crypt.Common
                     Thread.Sleep(100);
                 }
 
-                if (File.Exists(ProgramWideConfig.ExePath))
+                if (File.Exists(ProgramWideConfig.Program_Str_ExePath))
                 {
-                    ProgramWideConfig.CurrentExeSha256 = Utils.CommonUtilities.CheckFileSHA256(ProgramBase.CurrentExePath);
+                    ProgramWideConfig.Program_Str_CurrentSHA256 = Utils.CommonUtilities.CheckFileSHA256(ProgramBase.CurrentExePath);
 
-                    if (ProgramWideConfig.LastExeSha256 != ProgramWideConfig.CurrentExeSha256)
-                        Utils.CommonUtilities.CopyExeToPath(ProgramWideConfig.ExePath);
+                    if (ProgramWideConfig.Program_Str_LastFileSHA256 != ProgramWideConfig.Program_Str_CurrentSHA256)
+                        Utils.CommonUtilities.CopyExeToPath(ProgramWideConfig.Program_Str_ExePath);
                 }
-                else Utils.CommonUtilities.CopyExeToPath(ProgramWideConfig.ExePath);
+                else Utils.CommonUtilities.CopyExeToPath(ProgramWideConfig.Program_Str_ExePath);
 
-                ProgramWideConfig.LastExeSha256 = ProgramWideConfig.CurrentExeSha256;
+                ProgramWideConfig.Program_Str_LastFileSHA256 = ProgramWideConfig.Program_Str_CurrentSHA256;
 
                 //Thread.Sleep(3000);
 
@@ -105,9 +105,6 @@ namespace R_Crypt.Common
                 Application.Current.MainWindow = lw;
                 lw.Show();
             }
-
-            //CryptHandler crypt = new();
-            //crypt.EncryptConfig("prova");
         }
 
         public enum StartupType { FirstTime, NoUser, WithUser}
