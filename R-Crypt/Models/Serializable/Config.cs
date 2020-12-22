@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R_Crypt.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace R_Crypt.Models.Serializable
 {
     [Serializable]
-    public class Config
+    public class Config : BaseVM
     {
         public Config()
         {
@@ -51,6 +52,18 @@ namespace R_Crypt.Models.Serializable
         public string Program_Str_CurrentSHA256 { get => _Program_Str_CurrentSHA256; set => _Program_Str_CurrentSHA256 = value; }
         private string _Program_Str_CurrentSHA256;
 
+        public DateTime Program_Date_LastEncryption { get => _Program_Date_LastEncryption; set => _Program_Date_LastEncryption = value; }
+        private DateTime _Program_Date_LastEncryption = DateTime.Now;
+
+        public DateTime Program_Date_LastDecryption { get => _Program_Date_LastDecryption; set => _Program_Date_LastDecryption = value; }
+        private DateTime _Program_Date_LastDecryption = DateTime.Now;
+
+        public int Program_Int_NumberOfEncryptedFolders { get => _Program_Int_NumberOfEncryptedFolders; set => _Program_Int_NumberOfEncryptedFolders = value; }
+        private int _Program_Int_NumberOfEncryptedFolders = 2;
+
+        public bool Program_Bool_AutoEncryptActive { get => _Program_Bool_AutoEncryptActive; set { _Program_Bool_AutoEncryptActive = value; Notify(); } }
+        private bool _Program_Bool_AutoEncryptActive = false; 
+
         public string User_Str_LastUser { get => _User_Str_LastUser; set => _User_Str_LastUser = value; }
         private string _User_Str_LastUser = "";
 
@@ -63,23 +76,40 @@ namespace R_Crypt.Models.Serializable
         public int Stats_Int_FilesEncrypted { get => _Stats_Int_FilesEncrypted; set => _Stats_Int_FilesEncrypted = value; }
         private int _Stats_Int_FilesEncrypted = 23;
 
-        public long Stats_Long_TotalSizeEncrypted { get => _Stats_Long_TotalSizeEncrypted; set => _Stats_Long_TotalSizeEncrypted = value; }
-        private long _Stats_Long_TotalSizeEncrypted = 1489415418987;
-
-        public long Stats_Long_BiggestEncrypted { get => _Stats_Long_BiggestEncrypted; set => _Stats_Long_BiggestEncrypted = value; }
-        private long _Stats_Long_BiggestEncrypted = 1548935487;
-
-        public string Stats_Str_MostUsedType { get => _Stats_Str_MostUsedType; set => _Stats_Str_MostUsedType = value; }
-        private string _Stats_Str_MostUsedType = "Audio";
-
         public int Stats_Int_FilesDecrypted { get => _Stats_Int_FilesDecrypted; set => _Stats_Int_FilesDecrypted = value; }
         private int _Stats_Int_FilesDecrypted = 15;
+
+        public long Stats_Long_TotalSizeEncrypted { get => _Stats_Long_TotalSizeEncrypted; set => _Stats_Long_TotalSizeEncrypted = value; }
+        private long _Stats_Long_TotalSizeEncrypted = 1489415418987;
 
         public long Stats_Long_TotalSizeDecrypted { get => _Stats_Long_TotalSizeDecrypted; set => _Stats_Long_TotalSizeDecrypted = value; }
         private long _Stats_Long_TotalSizeDecrypted = 5489748541;
 
+        public long Stats_Long_BiggestEncrypted { get => _Stats_Long_BiggestEncrypted; set => _Stats_Long_BiggestEncrypted = value; }
+        private long _Stats_Long_BiggestEncrypted = 1548935487;
+
+        public long Stats_Long_BiggestDecrypted { get => _Stats_Long_BiggestDecrypted; set => _Stats_Long_BiggestDecrypted = value; }
+        private long _Stats_Long_BiggestDecrypted;
+
+        public string Stats_Str_MostUsedType { get => _Stats_Str_MostUsedType; set => _Stats_Str_MostUsedType = value; }
+        private string _Stats_Str_MostUsedType = "Audio";
+
+        public string Stats_Str_TotalTimeEncryption { get => _Stats_Str_TotalTimeEncryption; set => _Stats_Str_TotalTimeEncryption = value; }
+        private string _Stats_Str_TotalTimeEncryption = "05 h / 41 m / 23 s";
+
+        public string Stats_Str_TotalTimeDecryption { get => _Stats_Str_TotalTimeDecryption; set => _Stats_Str_TotalTimeDecryption = value; }
+        private string _Stats_Str_TotalTimeDecryption = "05 h / 41 m / 23 s";
+
+        public string Stats_Str_LongestTimeEncryption { get => _Stats_Str_LongestTimeEncryption; set => _Stats_Str_LongestTimeEncryption = value; }
+        private string _Stats_Str_LongestTimeEncryption = "05 h / 41 m / 23 s";
+
+        public string Stats_Str_LongestTimeDecryption { get => _Stats_Str_LongestTimeDecryption; set => _Stats_Str_LongestTimeDecryption = value; }
+        private string _Stats_Str_LongestTimeDecryption = "05 h / 41 m / 23 s";
+
+        public int Stats_Int_CurrentlyEncryptedFiles { get => _Stats_Int_CurrentlyEncryptedFiles; set => _Stats_Int_CurrentlyEncryptedFiles = value; }
+        private int _Stats_Int_CurrentlyEncryptedFiles = 15;
+
         public List<CryptoFile> CryptoFiles_CurrentEncryptedFiles { get => _CryptoFiles_CurrentEncryptedFiles; set => _CryptoFiles_CurrentEncryptedFiles = value; }
         private List<CryptoFile> _CryptoFiles_CurrentEncryptedFiles = new();
-
     }
 }
