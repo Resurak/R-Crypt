@@ -1,4 +1,5 @@
-﻿using R_Crypt.Common.Utils;
+﻿using R_Crypt.Common;
+using R_Crypt.Common.Utils;
 using R_Crypt.Models;
 using R_Crypt.Models.Serializable;
 using R_Crypt.ViewModels.Base;
@@ -21,6 +22,8 @@ namespace R_Crypt.ViewModels
         public RelayCommand CMD_GoTo_Encrypt { get; private set; }
         public RelayCommand CMD_Goto_Decrypt { get; private set; }
         public RelayCommand CMD_GoTo_Options { get; private set; }
+        public RelayCommand CMD_Process_StartEncryption { get; private set; }
+        public RelayCommand CMD_Process_StartDecryption { get; private set; }
 
         public CryptWindowVM()
         {
@@ -36,6 +39,9 @@ namespace R_Crypt.ViewModels
             CMD_GoTo_Encrypt = new RelayCommand(CMD_GoTo_EncryptEvent);
             CMD_Goto_Decrypt = new RelayCommand(CMD_Goto_DecryptEvent);
             CMD_GoTo_Options = new RelayCommand(CMD_GoTo_OptionsEvent);
+
+            CMD_Process_StartEncryption = new RelayCommand(CMD_StartEncryptionEvent);
+            CMD_Process_StartDecryption = new RelayCommand(CMD_StartDecryptionEvent);
         }
 
         private void SetDefaults()
@@ -89,18 +95,28 @@ namespace R_Crypt.ViewModels
 
         }
 
+        private void CMD_StartEncryptionEvent(object obj)
+        {
+
+        }
+
+        private void CMD_StartDecryptionEvent(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public Visibility Vis_HomeGrid { get => vis_HomeGrid; set { vis_HomeGrid = value; Notify(); } }
-        private Visibility vis_HomeGrid;
+        private Visibility vis_HomeGrid = Visibility.Hidden;
 
         public Visibility Vis_EncryptGrid { get => vis_EncryptGrid; set { vis_EncryptGrid = value; Notify(); } }
-        private Visibility vis_EncryptGrid;
+        private Visibility vis_EncryptGrid = Visibility.Hidden;
 
         public Visibility Vis_DecryptGrid { get => vis_DecryptGrid; set { vis_DecryptGrid = value; Notify(); } }
-        private Visibility vis_DecryptGrid;
+        private Visibility vis_DecryptGrid = Visibility.Hidden;
 
         public Visibility Vis_OptionsGrid { get => vis_OptionsGrid; set { vis_OptionsGrid = value; Notify(); } }
-        private Visibility vis_OptionsGrid;
+        private Visibility vis_OptionsGrid = Visibility.Hidden;
 
 
         public Config Config { get => config; set { config = value; Notify(); } }
@@ -114,7 +130,11 @@ namespace R_Crypt.ViewModels
 
         public ObservableCollection<CryptoFile> CryptoFile_Config_EncryptedFiles { get => new ObservableCollection<CryptoFile>(Config.CryptoFiles_CurrentEncryptedFiles); }
         
-        public ObservableCollection<CryptoFile> CryptoFile_Current_EncryptedFiles { get => CryptoFile_Current_EncryptedFiles; set { _CryptoFile_Current_EncryptedFiles = value; Notify(); } }
+        public CryptoFilesHandler FilesHandler { get => _FilesHandler; set { _FilesHandler = value; Notify(); } }
+        private CryptoFilesHandler _FilesHandler = new();
+
+        public ObservableCollection<CryptoFile> CryptoFile_Current_EncryptedFiles { get => _CryptoFile_Current_EncryptedFiles; set { _CryptoFile_Current_EncryptedFiles = value; Notify(); } }
         private ObservableCollection<CryptoFile> _CryptoFile_Current_EncryptedFiles = new();
+        
     }
 }

@@ -9,7 +9,6 @@ using System.Windows.Input;
 
 namespace R_Crypt.ViewModels.Base
 {
-    [Serializable]
     public class RelayCommand : ICommand
     {
         public RelayCommand() { }
@@ -46,7 +45,6 @@ namespace R_Crypt.ViewModels.Base
         }
     }
 
-    [Serializable]
     public class BaseVM : RelayCommand, INotifyPropertyChanged
     {
         public virtual event PropertyChangedEventHandler PropertyChanged;

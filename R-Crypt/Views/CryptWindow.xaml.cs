@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R_Crypt.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,14 @@ namespace R_Crypt.Views
         public CryptWindow()
         {
             InitializeComponent();
+        }
+
+        private void FileList_PreviewDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                (DataContext as CryptWindowVM).FilesHandler.GetCryptoFiles((string[])e.Data.GetData(DataFormats.FileDrop), true);
+            }
         }
     }
 }

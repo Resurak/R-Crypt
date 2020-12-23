@@ -104,8 +104,8 @@ namespace R_Crypt.ViewModels
 
             if (fileDialog.ShowDialog() == true)
             {
-                foreach (var file in fileDialog.FileNames)
-                    CryptoFiles.Add(file.GetCryptoFile());
+                //foreach (var file in fileDialog.FileNames)
+                    //CryptoFiles.Add(file.GetCryptoFile());
             }
         }
 
@@ -152,7 +152,7 @@ namespace R_Crypt.ViewModels
         {
             foreach (var file in files)
             {
-                CryptoFiles.Add(file.GetCryptoFile());
+                //CryptoFiles.Add(file.GetCryptoFile());
             }
 
             ObservableCollection<CryptoFile> orderedByFolder =

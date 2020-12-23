@@ -56,14 +56,14 @@ namespace R_Crypt.Common.Utils
             return sb.ToString();
         }
 
-        public static string GetSizeFromFilePath(this string path)
+        public static long GetSizeFromFilePath(this string path)
         {
             if (File.Exists(path))
             {
                 FileInfo info = new FileInfo(path);
-                return info.Length.ConvertLongByteToString();
+                return info.Length;
             }
-            else return "error";
+            else return -1;
         }
 
         public static string GetFileName(this string path)

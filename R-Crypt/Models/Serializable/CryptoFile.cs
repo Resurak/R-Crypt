@@ -11,11 +11,12 @@ using System.Drawing;
 using System.Windows.Media;
 using System.Reflection;
 using R_Crypt.ViewModels.Base;
+using R_Crypt.Models.Base;
 
 namespace R_Crypt.Models.Serializable
 {
     [Serializable]
-    public class CryptoFile : BaseVM
+    public class CryptoFile : BaseModel
     {
         public CryptoFile()
         {
