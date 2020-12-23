@@ -19,8 +19,8 @@ namespace R_Crypt.Models.Base
         private void LoadDefaults()
         {
             _ConfigFolder_Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Program_Name);
-            _ConfigFile_Path = Path.Combine(ConfigFolder_Path, ConfigFile_Name);
-            _ExeFilePath = Path.Combine(ConfigFolder_Path, Program_ExeName);
+            _ConfigFile_Path = Path.Combine(Base_Path_ConfigFolder, ConfigFile_Name);
+            _ExeFilePath = Path.Combine(Base_Path_ConfigFolder, Program_ExeName);
         }
 
         public string Program_Name = "R-Crypt";
@@ -28,17 +28,13 @@ namespace R_Crypt.Models.Base
         public string Program_Extension = ".crypto";
         public string ConfigFile_Name = "config.rcfg";
 
-        public string ConfigFolder_Path { get => _ConfigFolder_Path; }
+        public string Base_Path_ConfigFolder { get => _ConfigFolder_Path; }
         private string _ConfigFolder_Path = "";
 
         public string Base_Path_ConfigFile { get => _ConfigFile_Path; }
         private string _ConfigFile_Path = "";
 
-        public string ExeFile_Path { get => _ExeFilePath; }
+        public string Base_Path_ExeFile { get => _ExeFilePath; }
         private string _ExeFilePath = "";
-
-        public string CurrentExePath { get => Assembly.GetExecutingAssembly().Location; }
-
-
     }
 }

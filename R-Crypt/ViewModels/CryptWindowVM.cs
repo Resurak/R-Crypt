@@ -40,8 +40,8 @@ namespace R_Crypt.ViewModels
 
         private void SetDefaults()
         {
-            Vis_HomeGrid = Visibility.Visible;
-            Vis_EncryptGrid = Visibility.Hidden;
+            Vis_HomeGrid = Visibility.Hidden;
+            Vis_EncryptGrid = Visibility.Visible;
             Vis_DecryptGrid = Visibility.Hidden;
             Vis_OptionsGrid = Visibility.Hidden;
         }
@@ -112,6 +112,9 @@ namespace R_Crypt.ViewModels
 
         public string ProgramVersion { get => Config.Program_Str_Version; }
 
-        public ObservableCollection<CryptoFile> CryptoFiles { get => new ObservableCollection<CryptoFile>(Config.CryptoFiles_CurrentEncryptedFiles); }
+        public ObservableCollection<CryptoFile> CryptoFile_Config_EncryptedFiles { get => new ObservableCollection<CryptoFile>(Config.CryptoFiles_CurrentEncryptedFiles); }
+        
+        public ObservableCollection<CryptoFile> CryptoFile_Current_EncryptedFiles { get => CryptoFile_Current_EncryptedFiles; set { _CryptoFile_Current_EncryptedFiles = value; Notify(); } }
+        private ObservableCollection<CryptoFile> _CryptoFile_Current_EncryptedFiles = new();
     }
 }

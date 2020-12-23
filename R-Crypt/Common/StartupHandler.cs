@@ -11,14 +11,18 @@ using R_Crypt.Models;
 using R_Crypt.Views;
 using R_Crypt.Models.Serializable;
 using R_Crypt.Crypt;
+using R_Crypt.Models.Base;
+using System.Security.Permissions;
 
 namespace R_Crypt.Common
 {
-    public class StartupHandler : ProgramBase
+    public class StartupHandler
     {
-        public static ProgramBase ProgramBase = new();
         public static StartupType Startup = new();
         public static bool Loaded = false;
+
+        public static BaseProgram BaseProgram = new();
+        public static Config Config = new();
 
         public StartupHandler()
         {
@@ -27,33 +31,23 @@ namespace R_Crypt.Common
 
         public static async void LoadConfig()
         {
-            //CryptHandler crypt = new();
-            //crypt.EncryptConfig("prova");
+            if (!Directory.Exists(BaseProgram.Base_Path_ConfigFolder)) Directory.CreateDirectory(BaseProgram.Base_Path_ConfigFolder);
 
-            if (!Directory.Exists(ProgramBase.ConfigFolder_Path)) Directory.CreateDirectory(ProgramBase.ConfigFolder_Path);
-
-            if (ProgramWideConfig == null) ProgramWideConfig = new();
-
-            ConfigHandler.SerializeConfig(ProgramWideConfig, ProgramBase.ConfigFile_Path);
+            ConfigHandler.SerializeConfig(Config, BaseProgram.Base_Path_ConfigFile);
 
             await Task.Run(() =>
             {
-                if (File.Exists(ProgramBase.ConfigFile_Path))
+                if (File.Exists(BaseProgram.Base_Path_ConfigFile))
                 {
-                    ProgramWideConfig = ConfigHandler.DeserializeConfig(ProgramBase.ConfigFile_Path);
+                    Config = ConfigHandler.DeserializeConfig(BaseProgram.Base_Path_ConfigFile);
 
-                    if (ProgramWideConfig.Opt_Bool_NoUser) Startup = StartupType.NoUser;
+                    if (Config.Opt_Bool_NoUser) Startup = StartupType.NoUser;
                     else Startup = StartupType.NoUser;
                 }
                 else
                 {
-                    ConfigHandler.SerializeConfig(ProgramWideConfig, ProgramBase.ConfigFile_Path);
-                    Startup = StartupType.FirstTime;
-                }
-
-                if (string.IsNullOrWhiteSpace(ProgramWideConfig.Program_Str_ExePath))
-                {
-                    ProgramWideConfig.Program_Str_ExePath = ProgramBase.ExeFile_Path;
+                    ConfigHandler.SerializeConfig(Config, BaseProgram.Base_Path_ConfigFile);
+                    Startup = StartupType.NoUser; // se il file non esiste allora dà errore. da implementare dopo aver fatto l'installer
                 }
 
                 Loaded = true;
@@ -69,20 +63,20 @@ namespace R_Crypt.Common
                     Thread.Sleep(100);
                 }
 
-                if (File.Exists(ProgramWideConfig.Program_Str_ExePath))
+                if (File.Exists(BaseProgram.Base_Path_ExeFile))
                 {
-                    ProgramWideConfig.Program_Str_CurrentSHA256 = Utils.CommonUtilities.CheckFileSHA256(ProgramBase.CurrentExePath);
+                    Config.Program_Str_CurrentSHA256 = Utils.CommonUtilities.CheckFileSHA256(Config.Program_Str_CurrentExePath);
 
-                    if (ProgramWideConfig.Program_Str_LastFileSHA256 != ProgramWideConfig.Program_Str_CurrentSHA256)
-                        Utils.CommonUtilities.CopyExeToPath(ProgramWideConfig.Program_Str_ExePath);
+                    if (Config.Program_Str_LastFileSHA256 != Config.Program_Str_CurrentSHA256)
+                        Utils.CommonUtilities.CopyExeToPath(BaseProgram.Base_Path_ExeFile);
                 }
-                else Utils.CommonUtilities.CopyExeToPath(ProgramWideConfig.Program_Str_ExePath);
+                else Utils.CommonUtilities.CopyExeToPath(BaseProgram.Base_Path_ExeFile);
 
-                ProgramWideConfig.Program_Str_LastFileSHA256 = ProgramWideConfig.Program_Str_CurrentSHA256;
+                Config.Program_Str_LastFileSHA256 = Config.Program_Str_CurrentSHA256;
 
                 //Thread.Sleep(3000);
 
-                ConfigHandler.SaveChanges();
+                ConfigHandler.SerializeConfig(Config, BaseProgram.Base_Path_ConfigFile);
             });
 
             if (Startup == StartupType.FirstTime)

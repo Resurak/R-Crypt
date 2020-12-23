@@ -40,11 +40,8 @@ namespace R_Crypt.Models.Serializable
 
         public void SaveChanges()
         {
-            ConfigHandler.SerializeConfig(this, this.Program_Str_ExePath);
+            ConfigHandler.SerializeConfig(this, this.Program_Str_CurrentExePath);
         }
-
-        public string Program_Str_Version { get => _Program_Str_Version; set { _Program_Str_Version = value; } }
-        private string _Program_Str_Version = "0.12.0";
 
         public int Opt_Int_AESKeySize { get => _Opt_Int_AESKeySize; set { _Opt_Int_AESKeySize = value; } }
         private int _Opt_Int_AESKeySize = 256;
@@ -67,11 +64,14 @@ namespace R_Crypt.Models.Serializable
         public bool Opt_Bool_RememberUsername { get => _Opt_Bool_RememberUsername; set => _Opt_Bool_RememberUsername = value; }
         private bool _Opt_Bool_RememberUsername = false;
 
-        public string Program_Str_FileSHA256 { get => _Program_Str_FileSHA256; set => _Program_Str_FileSHA256 = value; }
-        private string _Program_Str_FileSHA256 = "";
+        public string Program_Str_Version { get => _Program_Str_Version; set { _Program_Str_Version = value; } }
+        private string _Program_Str_Version = "0.12.0";
 
-        public string Program_Str_ExePath { get => _Program_Str_ExePath; set => _Program_Str_ExePath = value; }
-        private string _Program_Str_ExePath = "";
+        //public string Program_Str_FileSHA256 { get => _Program_Str_FileSHA256; set => _Program_Str_FileSHA256 = value; }
+        //private string _Program_Str_FileSHA256 = "";
+
+        public string Program_Str_CurrentExePath { get => _Program_Str_CurrentExePath; set => _Program_Str_CurrentExePath = value; }
+        private string _Program_Str_CurrentExePath = Assembly.GetExecutingAssembly().Location;
 
         public string Program_Str_LastFileSHA256 { get => _Program_Str_LastFileSHA256; set => _Program_Str_LastFileSHA256 = value; }
         private string _Program_Str_LastFileSHA256;

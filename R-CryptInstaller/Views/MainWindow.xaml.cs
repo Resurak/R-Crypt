@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using R_Crypt.Common;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace R_Crypt.Views
+namespace R_CryptInstaller.Views
 {
     /// <summary>
-    /// Logica di interazione per SplashScreen.xaml
+    /// Logica di interazione per MainWindow.xaml
     /// </summary>
-    public partial class SplashScreen : Window
+    public partial class MainWindow : Window
     {
-        public SplashScreen()
+        public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            StartupHandler.LoadConfig();
-            StartupHandler.StartProgram();
         }
     }
 }

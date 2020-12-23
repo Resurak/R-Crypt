@@ -127,7 +127,7 @@
                         <Border Background="{DynamicResource BackgroundWindowColor}" CornerRadius="30,0,0,0"/>
                     </Grid>
 
-                    <Grid x:Name="HomeGrid">
+                    <Grid x:Name="HomeGrid" Visibility="{Binding Vis_HomeGrid}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
@@ -190,7 +190,6 @@
 
                                 </StackPanel>
                             </ScrollViewer>
-
 
                             <Border BorderBrush="AliceBlue" BorderThickness="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0,10,-1,10"/>
 
@@ -270,7 +269,19 @@
                         </Grid>
                         
                     </Grid>
-                    
+
+                    <Grid x:Name="EncryptionGrid" Visibility="{Binding Vis_EncryptGrid}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Encrypt" Style="{DynamicResource CenterTextBlock}" FontSize="20"/>
+
+                        
+                        
+                    </Grid>
 
                 </Grid>
             </Grid>

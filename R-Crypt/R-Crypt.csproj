@@ -74,7 +74,6 @@
     <Compile Include="Converters\TimeSpanToStringConverter.cs" />
     <Compile Include="Models\Base\BaseProgram.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
-    <Compile Include="Models\ProgramBase.cs" />
     <Compile Include="Common\StartupHandler.cs" />
     <Compile Include="Models\Serializable\Config.cs" />
     <Compile Include="Models\Serializable\CryptoFile.cs" />

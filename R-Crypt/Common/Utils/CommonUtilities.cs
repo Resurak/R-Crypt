@@ -112,11 +112,6 @@ namespace R_Crypt.Common.Utils
             else return false;
         }
 
-        public static string GetCurrentExePath()
-        {
-            return Assembly.GetExecutingAssembly().Location;
-        }
-
         public static void CopyExeToPath(string path)
         {
             try

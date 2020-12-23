@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R-Crypt", "R-Crypt\R-Crypt.csproj", "{88C1CCFC-8CEF-4003-BE87-CA9C72BEF784}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R-CryptInstaller", "R-CryptInstaller\R-CryptInstaller.csproj", "{3A8A6A91-FAF5-4810-8B74-AB458C8D61EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{88C1CCFC-8CEF-4003-BE87-CA9C72BEF784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88C1CCFC-8CEF-4003-BE87-CA9C72BEF784}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88C1CCFC-8CEF-4003-BE87-CA9C72BEF784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8A6A91-FAF5-4810-8B74-AB458C8D61EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8A6A91-FAF5-4810-8B74-AB458C8D61EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8A6A91-FAF5-4810-8B74-AB458C8D61EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8A6A91-FAF5-4810-8B74-AB458C8D61EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -35,17 +35,5 @@ namespace R_Crypt.Common
 
             return config;
         }
-
-        public static void SaveChanges()
-        {
-            ProgramBase programBase = new();
-
-            using (var filestream = new FileStream(programBase.ConfigFile_Path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-            {
-                BinaryFormatter formatter = new();
-                formatter.Serialize(filestream, ProgramBase.ProgramWideConfig);
-                filestream.Close();
-            }
-        }
     }
 }
