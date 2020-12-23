@@ -32,6 +32,8 @@ namespace R_Crypt.Common
 
             if (!Directory.Exists(ProgramBase.ConfigFolder_Path)) Directory.CreateDirectory(ProgramBase.ConfigFolder_Path);
 
+            if (ProgramWideConfig == null) ProgramWideConfig = new();
+
             ConfigHandler.SerializeConfig(ProgramWideConfig, ProgramBase.ConfigFile_Path);
 
             await Task.Run(() =>

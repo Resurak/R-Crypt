@@ -70,6 +70,10 @@
     <Compile Include="Common\CryptoFilesHandler.cs" />
     <Compile Include="Common\Utils\AsyncObservableCollection.cs" />
     <Compile Include="Common\Utils\ExtensionType.cs" />
+    <Compile Include="Converters\LongToStringConverter.cs" />
+    <Compile Include="Converters\TimeSpanToStringConverter.cs" />
+    <Compile Include="Models\Base\BaseProgram.cs" />
+    <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\ProgramBase.cs" />
     <Compile Include="Common\StartupHandler.cs" />
     <Compile Include="Models\Serializable\Config.cs" />
@@ -184,7 +188,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Config\" />
     <Folder Include="UserControls\ViewModels\" />
   </ItemGroup>
   <ItemGroup>

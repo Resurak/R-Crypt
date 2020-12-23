@@ -25,5 +25,10 @@ namespace R_Crypt
             Application.Current.MainWindow = sc;
             sc.Show();
         }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
     }
 }

@@ -54,6 +54,8 @@ namespace R_Crypt.ViewModels
             Vis_OptionsGrid = Visibility.Visible;
 
             Config.Program_Bool_AutoEncryptActive = true;
+            Config.Stats_Int_FilesEncrypted = 27;
+            Config.Stats_Long_BiggestDecrypted = 18435464;
         }
 
         private void CMD_Goto_DecryptEvent(object obj)
@@ -101,54 +103,12 @@ namespace R_Crypt.ViewModels
         private Visibility vis_OptionsGrid;
 
 
-        public Config Config { get => ProgramBase.ProgramWideConfig; set { ProgramBase.ProgramWideConfig = value; Notify(); } }
+        public Config Config { get => config; set { config = value; Notify(); } }
+        private Config config = new();
 
-        public string Str_FilesEncrypted { get => Config.Stats_Int_FilesEncrypted.ToString(); set { Notify(); } }
-        public string Str_FilesDecrypted { get => Config.Stats_Int_FilesDecrypted.ToString(); }
-
-        public string Str_TotalSizeEncrypted { get => Config.Stats_Long_TotalSizeEncrypted.ConvertLongByteToString(); }
-        public string Str_TotalSizeDecrypted { get => Config.Stats_Long_TotalSizeDecrypted.ConvertLongByteToString(); }
-
-        public string Str_BiggestSizeEncrypted { get => Config.Stats_Long_BiggestEncrypted.ConvertLongByteToString(); }
-        public string Str_BiggestSizeDecrypted { get => Config.Stats_Long_BiggestDecrypted.ConvertLongByteToString(); }
-
-        public string Str_MostUsedType { get => Config.Stats_Str_MostUsedType; }
-
-        public string Str_TotalTimeEncrypted { get => Config.Stats_Str_TotalTimeEncryption; }
-        public string Str_TotalTimeDecrypted { get => Config.Stats_Str_TotalTimeDecryption; }
-
-        public string Str_LongestTimeEncryption { get => Config.Stats_Str_LongestTimeEncryption; }
-        public string Str_LongestTimeDecryption { get => Config.Stats_Str_LongestTimeDecryption; }
-
-        public string Str_CurrentlyEncrypted { get => Config.Stats_Int_CurrentlyEncryptedFiles.ToString(); }
-
-        public DateTime Date_LastOpen { get => Config.User_Date_LastLogin; }
-
-        public DateTime Date_LastEncryption { get => Config.Program_Date_LastEncryption; }
-        public DateTime Date_LastDecryption { get => Config.Program_Date_LastDecryption; }
-
-        public string Str_TotalEncryptedFolders { get => Config.Program_Int_NumberOfEncryptedFolders.ToString(); }
 
         public SolidColorBrush Color_AutoEncryptActive { get => _Color_AutoEncryptActive; set { _Color_AutoEncryptActive = value; Notify(); } }
         private SolidColorBrush _Color_AutoEncryptActive = new SolidColorBrush(Colors.Lime);
-        public string Str_AutoEncryptActive 
-        { 
-            get
-            {
-                if (Config.Program_Bool_AutoEncryptActive)
-                {
-                    Color_AutoEncryptActive = new SolidColorBrush(Colors.Lime);
-                    return "Yes";
-                }
-                else
-                {
-                    Color_AutoEncryptActive = new SolidColorBrush(Colors.Red);
-                    return "No";
-                }
-            }
-            set { Notify(); }
-        }
-
 
         public string ProgramVersion { get => Config.Program_Str_Version; }
 

@@ -1,19 +1,46 @@
-﻿using R_Crypt.ViewModels.Base;
+﻿using R_Crypt.Common;
+using R_Crypt.Models.Base;
+using R_Crypt.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace R_Crypt.Models.Serializable
 {
     [Serializable]
-    public class Config : BaseVM
+    public class Config : BaseProgram
     {
+        [NonSerialized]
+        private DispatcherTimer InternalTimer = new();
+        
         public Config()
         {
 
+        }
+
+        public void NotifyChanges()
+        {
+            InternalTimer.Interval = TimeSpan.FromMilliseconds(50);
+            InternalTimer.Tick += (sender, e) =>
+            {
+                List<string> properties = new();
+
+                foreach (var property in this.GetType().GetProperties().ToList())
+                    properties.Add(property.Name);
+
+                Notify(properties);
+            };
+            InternalTimer.Start();
+        }
+
+        public void SaveChanges()
+        {
+            ConfigHandler.SerializeConfig(this, this.Program_Str_ExePath);
         }
 
         public string Program_Str_Version { get => _Program_Str_Version; set { _Program_Str_Version = value; } }
@@ -61,7 +88,7 @@ namespace R_Crypt.Models.Serializable
         public int Program_Int_NumberOfEncryptedFolders { get => _Program_Int_NumberOfEncryptedFolders; set => _Program_Int_NumberOfEncryptedFolders = value; }
         private int _Program_Int_NumberOfEncryptedFolders = 2;
 
-        public bool Program_Bool_AutoEncryptActive { get => _Program_Bool_AutoEncryptActive; set { _Program_Bool_AutoEncryptActive = value; Notify(); } }
+        public bool Program_Bool_AutoEncryptActive { get => _Program_Bool_AutoEncryptActive; set { _Program_Bool_AutoEncryptActive = value; } }
         private bool _Program_Bool_AutoEncryptActive = false; 
 
         public string User_Str_LastUser { get => _User_Str_LastUser; set => _User_Str_LastUser = value; }
@@ -73,7 +100,7 @@ namespace R_Crypt.Models.Serializable
         public string User_Str_LastUserPassSHA256 { get => _User_Str_LastUserPassSHA256; set => _User_Str_LastUserPassSHA256 = value; }
         private string _User_Str_LastUserPassSHA256 = "";
 
-        public int Stats_Int_FilesEncrypted { get => _Stats_Int_FilesEncrypted; set => _Stats_Int_FilesEncrypted = value; }
+        public int Stats_Int_FilesEncrypted { get => _Stats_Int_FilesEncrypted; set { _Stats_Int_FilesEncrypted = value; } }
         private int _Stats_Int_FilesEncrypted = 23;
 
         public int Stats_Int_FilesDecrypted { get => _Stats_Int_FilesDecrypted; set => _Stats_Int_FilesDecrypted = value; }
@@ -88,23 +115,23 @@ namespace R_Crypt.Models.Serializable
         public long Stats_Long_BiggestEncrypted { get => _Stats_Long_BiggestEncrypted; set => _Stats_Long_BiggestEncrypted = value; }
         private long _Stats_Long_BiggestEncrypted = 1548935487;
 
-        public long Stats_Long_BiggestDecrypted { get => _Stats_Long_BiggestDecrypted; set => _Stats_Long_BiggestDecrypted = value; }
+        public long Stats_Long_BiggestDecrypted { get => _Stats_Long_BiggestDecrypted; set { _Stats_Long_BiggestDecrypted = value; } }
         private long _Stats_Long_BiggestDecrypted;
 
         public string Stats_Str_MostUsedType { get => _Stats_Str_MostUsedType; set => _Stats_Str_MostUsedType = value; }
         private string _Stats_Str_MostUsedType = "Audio";
 
-        public string Stats_Str_TotalTimeEncryption { get => _Stats_Str_TotalTimeEncryption; set => _Stats_Str_TotalTimeEncryption = value; }
-        private string _Stats_Str_TotalTimeEncryption = "05 h / 41 m / 23 s";
+        public TimeSpan Stats_Time_TotalTimeEncryption { get => _Stats_Time_TotalTimeEncryption; set => _Stats_Time_TotalTimeEncryption = value; }
+        private TimeSpan _Stats_Time_TotalTimeEncryption = new TimeSpan(2,23,45);
 
-        public string Stats_Str_TotalTimeDecryption { get => _Stats_Str_TotalTimeDecryption; set => _Stats_Str_TotalTimeDecryption = value; }
-        private string _Stats_Str_TotalTimeDecryption = "05 h / 41 m / 23 s";
+        public TimeSpan Stats_Time_TotalTimeDecryption { get => _Stats_Time_TotalTimeDecryption; set => _Stats_Time_TotalTimeDecryption = value; }
+        private TimeSpan _Stats_Time_TotalTimeDecryption = new TimeSpan(1,54,10);
 
-        public string Stats_Str_LongestTimeEncryption { get => _Stats_Str_LongestTimeEncryption; set => _Stats_Str_LongestTimeEncryption = value; }
-        private string _Stats_Str_LongestTimeEncryption = "05 h / 41 m / 23 s";
+        public TimeSpan Stats_Time_LongestTimeEncryption { get => _Stats_Time_LongestTimeEncryption; set => _Stats_Time_LongestTimeEncryption = value; }
+        private TimeSpan _Stats_Time_LongestTimeEncryption = new TimeSpan(0,23,10);
 
-        public string Stats_Str_LongestTimeDecryption { get => _Stats_Str_LongestTimeDecryption; set => _Stats_Str_LongestTimeDecryption = value; }
-        private string _Stats_Str_LongestTimeDecryption = "05 h / 41 m / 23 s";
+        public TimeSpan Stats_Time_LongestTimeDecryption { get => _Stats_Time_LongestTimeDecryption; set => _Stats_Time_LongestTimeDecryption = value; }
+        private TimeSpan _Stats_Time_LongestTimeDecryption = new TimeSpan(0,32,52);
 
         public int Stats_Int_CurrentlyEncryptedFiles { get => _Stats_Int_CurrentlyEncryptedFiles; set => _Stats_Int_CurrentlyEncryptedFiles = value; }
         private int _Stats_Int_CurrentlyEncryptedFiles = 15;
