@@ -307,7 +307,7 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="auto" MinWidth="80" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Type">
+                                    <DataGridTemplateColumn Width="auto" MinWidth="100" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Type">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Str_FileType}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -315,7 +315,7 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="100" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Size">
+                                    <DataGridTemplateColumn MinWidth="100" Width="auto" HeaderStyle="{DynamicResource CenterHeaderStyle}" Header="Size">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Long_FileSize, Converter={StaticResource LongToString}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
