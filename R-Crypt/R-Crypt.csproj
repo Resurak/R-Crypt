@@ -66,15 +66,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\ConfigHandler.cs" />
-    <Compile Include="Common\CryptoFilesHandler.cs" />
+    <Compile Include="Common\Handlers\ConfigHandler.cs" />
+    <Compile Include="Common\Handlers\CryptoFilesHandler.cs" />
     <Compile Include="Common\Utils\AsyncObservableCollection.cs" />
     <Compile Include="Common\Utils\ExtensionType.cs" />
+    <Compile Include="Converters\ForegroundConverter.cs" />
     <Compile Include="Converters\LongToStringConverter.cs" />
     <Compile Include="Converters\TimeSpanToStringConverter.cs" />
     <Compile Include="Models\Base\BaseProgram.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
-    <Compile Include="Common\StartupHandler.cs" />
+    <Compile Include="Common\Handlers\StartupHandler.cs" />
     <Compile Include="Models\Serializable\Config.cs" />
     <Compile Include="Models\Serializable\CryptoFile.cs" />
     <Compile Include="UserControls\Views\MenuButton.xaml.cs">
@@ -135,13 +136,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\LoginHandler.cs" />
+    <Compile Include="Common\Handlers\LoginHandler.cs" />
     <Compile Include="Common\Utils\CommonUtilities.cs" />
     <Compile Include="Crypt\Base\CryptBase.cs" />
     <Compile Include="Crypt\Base\CryptProgress.cs" />
     <Compile Include="Crypt\CryptHandler.cs" />
     <Compile Include="Models\Serializable\CryptoUser.cs" />
-    <Compile Include="Models\FilesToCrypt.cs" />
     <Compile Include="UserControls\Views\SideMenu.xaml.cs">
       <DependentUpon>SideMenu.xaml</DependentUpon>
     </Compile>

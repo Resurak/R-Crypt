@@ -14,7 +14,7 @@ using R_Crypt.Crypt;
 using R_Crypt.Models.Base;
 using System.Security.Permissions;
 
-namespace R_Crypt.Common
+namespace R_Crypt.Common.Handlers
 {
     public class StartupHandler
     {

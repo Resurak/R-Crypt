@@ -5,69 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
-namespace R_Crypt.Common
+namespace R_Crypt.Common.Handlers
 {
     public class CryptoFilesHandler : BaseModel
     {
-        public CryptoFile GetCryptoFile(string file)
-        {
-            CryptoFile crypto = new();
-
-            if (file.CheckExist())
-            {
-                crypto.Bool_IsFolder = file.IsDirectoryOrFile();
-
-                crypto.Str_Path = file;
-                crypto.Str_FileName = crypto.Str_Path.GetFileName();
-
-                crypto.Tooltip = $"Path of the file: {crypto.Str_Path}";
-
-                if (crypto.Bool_IsFolder)
-                {
-                    crypto.Icon = new BitmapImage(new Uri(@"pack://application:,,,/"
-                        + Assembly.GetExecutingAssembly().GetName().Name
-                        + ";component/"
-                        + "Resources/folder.png", UriKind.Absolute));
-
-                    crypto.Long_FileSize = 0;
-                    crypto.Str_FileSize = "";
-                    crypto.Str_FileType = "Folder";
-                }
-                else
-                {
-                    FileInfo info = new(file);
-
-                    crypto.Long_FileSize = info.Length;
-
-                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(file);
-                    crypto.Icon = icon.ToImageSource();
-
-                    crypto.Str_FileSize = info.Length.ConvertLongByteToString();
-                    crypto.Str_FileExtension = file.GetFileExtension();
-                    crypto.Str_FileType = file.GetFileExtension().GetExtensionType();
-                }
-
-                crypto.Long_ProcessedSize = 0;
-                crypto.Str_ProgressTracker = "Waiting input";
-
-                crypto.Vis_ProgressBar = Visibility.Hidden;
-                crypto.Vis_TextBlock = Visibility.Visible;
-            }
-            else
-            {
-                crypto.Str_FileName = "Error";
-                crypto.Tooltip = $"Error. Cannot get {crypto.Str_Path}. Probably need admin privileges";
-                crypto.Error = true;
-            }
-
-            return crypto;
-        }
-
         public void GetCryptoFiles(string[] files, bool overwrite)
         {
             if (overwrite && CryptoFiles.Count > 0) CryptoFiles.Clear();
@@ -102,9 +54,6 @@ namespace R_Crypt.Common
 
                         crypto.Long_FileSize = info.Length;
 
-                        var icon = System.Drawing.Icon.ExtractAssociatedIcon(file);
-                        crypto.Icon = icon.ToImageSource();
-
                         crypto.Str_FileSize = info.Length.ConvertLongByteToString();
                         crypto.Str_FileExtension = file.GetFileExtension();
                         crypto.Str_FileType = file.GetFileExtension().GetExtensionType();
@@ -124,6 +73,37 @@ namespace R_Crypt.Common
                 }
 
                 CryptoFiles.Add(crypto);
+
+                OnCollectionChanged();
+            }
+
+            AddIcons();
+        }
+
+        private async void AddIcons()
+        {
+            foreach (var file in CryptoFiles)
+            {
+                if (!file.Bool_IsFolder)
+                {
+                    var worker = new BackgroundWorker();
+                    worker.DoWork += (sender, e) =>
+                    {
+                        using (Icon ico = Icon.ExtractAssociatedIcon(file.Str_Path))
+                        {
+                            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                                    ico.Handle,
+                                    Int32Rect.Empty,
+                                    BitmapSizeOptions.FromEmptyOptions());
+
+                            imageSource.Freeze();
+
+                            file.Icon = imageSource;
+                        }
+                    };
+                    worker.RunWorkerAsync();
+                }
+                await Task.Run(() => Thread.Sleep(10));
             }
         }
 
@@ -131,15 +111,26 @@ namespace R_Crypt.Common
         {
             Int_TotalFiles = CryptoFiles.Count;
 
+            int folders = 0;
+
             foreach (var file in CryptoFiles)
             {
                 Long_TotalSize += file.Long_FileSize;
                 Long_ProcessedSize += file.Long_ProcessedSize;
+
+                if (file.Bool_IsFolder) folders++;
             }
+
+            if (folders > 0) Int_TotalFolders = folders; 
         }
+
+
 
         public int Int_TotalFiles { get => _Int_TotalFiles; set { _Int_TotalFiles = value; Notify(); } }
         private int _Int_TotalFiles;
+
+        public int Int_TotalFolders { get => _Int_TotalFolder; set { _Int_TotalFolder = value; Notify(); } }
+        private int _Int_TotalFolder;
 
         public long Long_TotalSize { get => _Long_TotalSize; set { _Long_TotalSize = value; Notify(); } }
         private long _Long_TotalSize;
@@ -155,6 +146,8 @@ namespace R_Crypt.Common
 
         public ObservableCollection<CryptoFile> CryptoFiles { get => _CryptoFiles; set { _CryptoFiles = value; OnCollectionChanged(); Notify(); } }
         private ObservableCollection<CryptoFile> _CryptoFiles = new();
+
+
 
         public void Encrypt()
         {
@@ -173,6 +166,21 @@ namespace R_Crypt.Common
                     }
                 }
             }
+        }
+
+        
+
+        private DispatcherTimer InternalTimer = new();
+
+        public void StartBackgroundNotify()
+        {
+            InternalTimer.Interval = TimeSpan.FromMilliseconds(50);
+            InternalTimer.Tick += (sender, e) =>
+            {
+                foreach (var file in CryptoFiles) 
+                    file.Update();
+            };
+            InternalTimer.Start();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R_Crypt.Common
+namespace R_Crypt.Common.Handlers
 {
     class LoginHandler
     {

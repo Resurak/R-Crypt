@@ -24,5 +24,14 @@ namespace R_Crypt.Models.Base
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
+        protected void UpdateAll()
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(string.Empty));
+            }
+        }
+
     }
 }

@@ -21,6 +21,11 @@
             <Setter Property="Margin" Value="0,5"/>
             <Setter Property="Foreground" Value="Lime"/>
         </Style>
+
+        <Style x:Key="H-StatsText" TargetType="TextBlock" BasedOn="{StaticResource CenterTextBlock}">
+            <Setter Property="Margin" Value="5,5"/>
+            <Setter Property="Foreground" Value="Lime"/>
+        </Style>
         
         <Style x:Key="BaseHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Height" Value="30"/>

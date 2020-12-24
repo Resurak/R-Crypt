@@ -32,5 +32,14 @@ namespace R_Crypt.Views
                 (DataContext as CryptWindowVM).FilesHandler.GetCryptoFiles((string[])e.Data.GetData(DataFormats.FileDrop), true);
             }
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if ((DataContext as CryptWindowVM).Config != null) 
+                (DataContext as CryptWindowVM).Config.StartBackgroundNotify();
+
+            if ((DataContext as CryptWindowVM).FilesHandler != null)
+                (DataContext as CryptWindowVM).FilesHandler.StartBackgroundNotify();
+        }
     }
 }

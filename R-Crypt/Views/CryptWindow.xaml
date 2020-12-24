@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:R_Crypt.ViewModels"
         xmlns:uc="clr-namespace:R_Crypt.UserControls.Views"
         xmlns:conv="clr-namespace:R_Crypt.Converters"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="CryptWindow" Height="600" Width="800">
     <Window.DataContext>
         <vm:CryptWindowVM/>
@@ -15,6 +15,7 @@
     <Window.Resources>
         <conv:LongToStringConverter x:Key="LongToString"/>
         <conv:TimeSpanToStringConverter x:Key="TimeSpanToStr"/>
+        <conv:ForegroundConverter x:Key="ForegroundAutoEncrypt"/>
     </Window.Resources>
     <Grid Background="{DynamicResource BackgroundWindowColor}">
 
@@ -127,7 +128,7 @@
                         <Border Background="{DynamicResource BackgroundWindowColor}" CornerRadius="30,0,0,0"/>
                     </Grid>
 
-                    <Grid x:Name="HomeGrid" Visibility="Hidden">
+                    <Grid x:Name="HomeGrid" Visibility="{Binding Vis_HomeGrid}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
@@ -155,37 +156,37 @@
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Currently ecrypted files:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Int_CurrentlyEncryptedFiles}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Int_FilesEncrypted}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Total files encrypted:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Int_FilesEncrypted}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Int_FilesEncrypted}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Total bytes encrypted:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Long_TotalSizeEncrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Long_TotalSizeEncrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Biggest file encrypted:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Long_BiggestEncrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Long_BiggestEncrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Most encrypted type:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Str_MostUsedType}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Str_MostUsedType}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Total time spent encrypting:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Time_LongestTimeEncryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Time_LongestTimeEncryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,5">
                                         <TextBlock Text="Longest time spent encrypting:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Time_LongestTimeEncryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Time_LongestTimeEncryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                 </StackPanel>
@@ -203,27 +204,27 @@
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Total files decrypted:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Int_FilesDecrypted}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Int_FilesDecrypted}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Total bytes decrypted:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Long_TotalSizeDecrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Long_TotalSizeDecrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Biggest file decrypted:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Long_BiggestDecrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Long_BiggestDecrypted, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Total time spent encrypting:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Time_TotalTimeDecryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Time_TotalTimeDecryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,5">
                                         <TextBlock Text="Longest time spent encrypting:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Stats_Time_LongestTimeDecryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Stats_Time_LongestTimeDecryption, Converter={StaticResource TimeSpanToStr}}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                 </StackPanel>
@@ -242,22 +243,22 @@
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Last encryption:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Program_Date_LastEncryption}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Program_Date_LastEncryption}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Last decryption:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Program_Date_LastDecryption}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Program_Date_LastDecryption}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Number of encrypted folders:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Program_Int_NumberOfEncryptedFolders}" Style="{DynamicResource StatsText}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Program_Int_NumberOfEncryptedFolders}" Style="{DynamicResource StatsText}"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical" Margin="0,0">
                                         <TextBlock Text="Auto-Encrypt active:" Style="{DynamicResource CenterTextBlock}"/>
-                                        <TextBlock Text="{Binding Config.Program_Bool_AutoEncryptActive}" Style="{DynamicResource StatsText}" Foreground="{Binding Color_AutoEncryptActive}"/>
+                                        <TextBlock Text="{Binding Config.MainConfig.Program_Bool_AutoEncryptActive}" Style="{DynamicResource StatsText}" Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text, Converter={StaticResource ForegroundAutoEncrypt}}"/>
                                     </StackPanel>
 
                                 </StackPanel>
@@ -347,12 +348,28 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="10" Orientation="Vertical">
 
-                                <StackPanel Orientation="Horizontal">
-                                    
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <TextBlock Text="Total files: " Style="{DynamicResource CenterTextBlock}"/>
+                                    <TextBlock Text="{Binding FilesHandler.Int_TotalFiles}" Style="{DynamicResource H-StatsText}"/>
                                 </StackPanel>
-                                
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <TextBlock Text="Total size: " Style="{DynamicResource CenterTextBlock}"/>
+                                    <TextBlock Text="{Binding FilesHandler.Long_TotalSize, Converter={StaticResource LongToString}}" Style="{DynamicResource H-StatsText}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <TextBlock Text="Folders: " Style="{DynamicResource CenterTextBlock}"/>
+                                    <TextBlock Text="{Binding FilesHandler.Int_TotalFolders}" Style="{DynamicResource H-StatsText}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <TextBlock Text="Ignore Folders: " Style="{DynamicResource CenterTextBlock}"/>
+                                    <TextBlock Text="True" Style="{DynamicResource H-StatsText}"/>
+                                </StackPanel>
+
                             </StackPanel>
 
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Column="1">

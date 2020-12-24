@@ -1,4 +1,5 @@
 ﻿using R_Crypt.Common;
+using R_Crypt.Common.Handlers;
 using R_Crypt.Common.Utils;
 using R_Crypt.Models;
 using R_Crypt.Models.Serializable;
@@ -46,22 +47,22 @@ namespace R_Crypt.ViewModels
 
         private void SetDefaults()
         {
-            Vis_HomeGrid = Visibility.Hidden;
-            Vis_EncryptGrid = Visibility.Visible;
+            Vis_HomeGrid = Visibility.Visible;
+            Vis_EncryptGrid = Visibility.Hidden;
             Vis_DecryptGrid = Visibility.Hidden;
             Vis_OptionsGrid = Visibility.Hidden;
         }
 
         private void CMD_GoTo_OptionsEvent(object obj)
         {
-            Vis_HomeGrid = Visibility.Hidden;
+            //Vis_HomeGrid = Visibility.Hidden;
             Vis_EncryptGrid = Visibility.Hidden;
             Vis_DecryptGrid = Visibility.Hidden;
             Vis_OptionsGrid = Visibility.Visible;
 
-            Config.Program_Bool_AutoEncryptActive = true;
-            Config.Stats_Int_FilesEncrypted = 27;
-            Config.Stats_Long_BiggestDecrypted = 18435464;
+            Config.MainConfig.Program_Bool_AutoEncryptActive = true;
+            Config.MainConfig.Stats_Int_FilesEncrypted = 27;
+            Config.MainConfig.Stats_Long_BiggestDecrypted = 18435464;
         }
 
         private void CMD_Goto_DecryptEvent(object obj)
@@ -102,7 +103,7 @@ namespace R_Crypt.ViewModels
 
         private void CMD_StartDecryptionEvent(object obj)
         {
-            throw new NotImplementedException();
+
         }
 
 
@@ -119,22 +120,11 @@ namespace R_Crypt.ViewModels
         private Visibility vis_OptionsGrid = Visibility.Hidden;
 
 
-        public Config Config { get => config; set { config = value; Notify(); } }
-        private Config config = new();
+        public ConfigHandler Config { get => _Config; set { _Config = value; Notify(); } }
+        private ConfigHandler _Config = new();
 
-
-        public SolidColorBrush Color_AutoEncryptActive { get => _Color_AutoEncryptActive; set { _Color_AutoEncryptActive = value; Notify(); } }
-        private SolidColorBrush _Color_AutoEncryptActive = new SolidColorBrush(Colors.Lime);
-
-        public string ProgramVersion { get => Config.Program_Str_Version; }
-
-        public ObservableCollection<CryptoFile> CryptoFile_Config_EncryptedFiles { get => new ObservableCollection<CryptoFile>(Config.CryptoFiles_CurrentEncryptedFiles); }
-        
         public CryptoFilesHandler FilesHandler { get => _FilesHandler; set { _FilesHandler = value; Notify(); } }
         private CryptoFilesHandler _FilesHandler = new();
-
-        public ObservableCollection<CryptoFile> CryptoFile_Current_EncryptedFiles { get => _CryptoFile_Current_EncryptedFiles; set { _CryptoFile_Current_EncryptedFiles = value; Notify(); } }
-        private ObservableCollection<CryptoFile> _CryptoFile_Current_EncryptedFiles = new();
         
     }
 }

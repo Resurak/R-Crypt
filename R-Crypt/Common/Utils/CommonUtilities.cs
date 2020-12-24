@@ -83,6 +83,8 @@ namespace R_Crypt.Common.Utils
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
 
+            imageSource.Freeze();
+
             return imageSource;
         }
 

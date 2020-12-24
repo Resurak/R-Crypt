@@ -15,32 +15,9 @@ namespace R_Crypt.Models.Serializable
     [Serializable]
     public class Config : BaseProgram
     {
-        [NonSerialized]
-        private DispatcherTimer InternalTimer = new();
-        
-        public Config()
+        internal void Update()
         {
-
-        }
-
-        public void NotifyChanges()
-        {
-            InternalTimer.Interval = TimeSpan.FromMilliseconds(50);
-            InternalTimer.Tick += (sender, e) =>
-            {
-                List<string> properties = new();
-
-                foreach (var property in this.GetType().GetProperties().ToList())
-                    properties.Add(property.Name);
-
-                Notify(properties);
-            };
-            InternalTimer.Start();
-        }
-
-        public void SaveChanges()
-        {
-            ConfigHandler.SerializeConfig(this, this.Program_Str_CurrentExePath);
+            UpdateAll();
         }
 
         public int Opt_Int_AESKeySize { get => _Opt_Int_AESKeySize; set { _Opt_Int_AESKeySize = value; } }

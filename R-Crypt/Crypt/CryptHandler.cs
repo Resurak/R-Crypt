@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using R_Crypt.Common;
+using R_Crypt.Common.Handlers;
 using R_Crypt.Crypt.Base;
 using R_Crypt.Models;
 using R_Crypt.Models.Base;
