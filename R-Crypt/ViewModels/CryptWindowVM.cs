@@ -25,6 +25,7 @@ namespace R_Crypt.ViewModels
         public RelayCommand CMD_GoTo_Options { get; private set; }
         public RelayCommand CMD_Process_StartEncryption { get; private set; }
         public RelayCommand CMD_Process_StartDecryption { get; private set; }
+        public RelayCommand CMD_OrderList_ByType { get; private set; }
 
         public CryptWindowVM()
         {
@@ -43,6 +44,13 @@ namespace R_Crypt.ViewModels
 
             CMD_Process_StartEncryption = new RelayCommand(CMD_StartEncryptionEvent);
             CMD_Process_StartDecryption = new RelayCommand(CMD_StartDecryptionEvent);
+
+            CMD_OrderList_ByType = new RelayCommand(CMD_OrderTypeEvent);
+        }
+
+        private void CMD_OrderTypeEvent(object obj)
+        {
+            FilesHandler.OrderByType();
         }
 
         private void SetDefaults()

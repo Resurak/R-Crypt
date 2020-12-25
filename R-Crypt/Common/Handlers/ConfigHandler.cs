@@ -53,14 +53,6 @@ namespace R_Crypt.Common.Handlers
 
         private DispatcherTimer InternalTimer = new();
 
-
-        public void StartBackgroundNotify()
-        {
-            InternalTimer.Interval = TimeSpan.FromMilliseconds(50);
-            InternalTimer.Tick += (sender, e) => MainConfig.Update();
-            InternalTimer.Start();
-        }
-
         public void SaveChanges()
         {
             ConfigHandler.SerializeConfig(MainConfig, MainConfig.Program_Str_CurrentExePath);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static R_Crypt.Models.Serializable.CryptoFile;
 
 namespace R_Crypt.Common.Utils
 {
@@ -52,39 +53,53 @@ namespace R_Crypt.Common.Utils
         public static string Zip = ".zip";
         public static string link = ".lnk";
 
-        public static string GetExtensionType(this string extension)
+        public static string str_audio = "Audio";
+        public static string str_video = "Video";
+        public static string str_audio_video = "Multimedia";
+        public static string str_image = "Image";
+        public static string str_word = "Word Document";
+        public static string str_excel = "Excel Document";
+        public static string str_pdf = "PDF Document";
+        public static string str_exe = "Program";
+        public static string str_rar = "Rar Archive";
+        public static string str_zip = "Compressed Folder";
+        public static string str_dll = "DLL Library";
+        public static string str_text = "Text File";
+        public static string str_link = "Link";
+
+        public static FileType GetExtensionType(this string extension)
         {
             foreach (var str in Audio)
             {
-                if (extension == str) return "Audio";
+                if (extension == str) return FileType.Audio;
             }
 
             foreach (var str in Video)
             {
-                if (extension == str) return "Video";
+                if (extension == str) return FileType.Video;
             }
 
             foreach (var str in Audio_Video)
-                if (extension == str) return "Multimedia";
+                if (extension == str) return FileType.Audio_Video;
 
             foreach (var str in Image)
-                if (extension == str) return "Image";
+                if (extension == str) return FileType.Image;
 
             foreach (var str in MSWord)
-                if (extension == str) return "Word Document";
+                if (extension == str) return FileType.MSWord;
 
             foreach (var str in MSExcel)
-                if (extension == str) return "Excel Document";
+                if (extension == str) return FileType.MSExcel;
 
-            if (extension == PDF) return "PDF Document";
-            if (extension == Exe) return "Program";
-            if (extension == Rar) return "Rar Archive";
-            if (extension == Zip) return "Compressed Folder";
-            if (extension == DLL) return "DLL Library";
-            if (extension == Text) return "Text File";
-            if (extension == link) return "Link";
+            if (extension == PDF) return FileType.PDF;
+            if (extension == Exe) return FileType.Exe;
+            if (extension == Rar) return FileType.Rar;
+            if (extension == Zip) return FileType.Zip;
+            if (extension == DLL) return FileType.DLL;
+            if (extension == Text) return FileType.Text;
+            if (extension == link) return FileType.Link;
 
-            return extension;
+            return FileType.NotSupported;
         }
     }
 }

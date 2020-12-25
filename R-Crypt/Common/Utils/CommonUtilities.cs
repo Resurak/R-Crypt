@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static R_Crypt.Models.Serializable.CryptoFile;
 
 namespace R_Crypt.Common.Utils
 {
@@ -121,6 +122,44 @@ namespace R_Crypt.Common.Utils
                 File.Copy(Assembly.GetExecutingAssembly().Location, path, true);
             }
             catch (Exception e) { MessageBox.Show(e.ToString()); }
+        }
+
+        public static string GetTypeString(this string extension)
+        {
+            FileType type = extension.GetExtensionType();
+
+            switch (type)
+            {
+                case FileType.Audio:
+                    return ExtensionType.str_audio;
+                case FileType.Video:
+                    return ExtensionType.str_video;
+                case FileType.Audio_Video:
+                    return ExtensionType.str_audio_video;
+                case FileType.Image:
+                    return ExtensionType.str_image;
+                case FileType.MSWord:
+                    return ExtensionType.str_word;
+                case FileType.MSExcel:
+                    return ExtensionType.str_excel;
+                case FileType.PDF:
+                    return ExtensionType.str_pdf;
+                case FileType.Exe:
+                    return ExtensionType.str_exe;
+                case FileType.Rar:
+                    return ExtensionType.str_rar;
+                case FileType.Zip:
+                    return ExtensionType.str_zip;
+                case FileType.DLL:
+                    return ExtensionType.str_dll;
+                case FileType.Text:
+                    return ExtensionType.str_text;
+                case FileType.Link:
+                    return ExtensionType.str_link;
+                case FileType.NotSupported:
+                    break;
+            }
+            return extension;
         }
     }
 }

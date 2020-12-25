@@ -128,7 +128,7 @@
                         <Border Background="{DynamicResource BackgroundWindowColor}" CornerRadius="30,0,0,0"/>
                     </Grid>
 
-                    <Grid x:Name="HomeGrid" Visibility="{Binding Vis_HomeGrid}">
+                    <Grid x:Name="HomeGrid" Visibility="Hidden">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
@@ -348,33 +348,67 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Margin="10" Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="10">
 
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <TextBlock Text="Total files: " Style="{DynamicResource CenterTextBlock}"/>
-                                    <TextBlock Text="{Binding FilesHandler.Int_TotalFiles}" Style="{DynamicResource H-StatsText}"/>
+                                <StackPanel Margin="0" Orientation="Vertical">
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Text="Total files: " Style="{DynamicResource CenterTextBlock}"/>
+                                        <TextBlock Text="{Binding FilesHandler.Int_TotalFiles}" Style="{DynamicResource H-StatsText}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Text="Total size: " Style="{DynamicResource CenterTextBlock}"/>
+                                        <TextBlock Text="{Binding FilesHandler.Long_TotalSize, Converter={StaticResource LongToString}}" Style="{DynamicResource H-StatsText}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Text="Folders: " Style="{DynamicResource CenterTextBlock}"/>
+                                        <TextBlock Text="{Binding FilesHandler.Int_TotalFolders}" Style="{DynamicResource H-StatsText}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Text="Ignore Folders: " Style="{DynamicResource CenterTextBlock}"/>
+                                        <TextBlock Text="True" Style="{DynamicResource H-StatsText}"/>
+                                    </StackPanel>
+
                                 </StackPanel>
 
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <TextBlock Text="Total size: " Style="{DynamicResource CenterTextBlock}"/>
-                                    <TextBlock Text="{Binding FilesHandler.Long_TotalSize, Converter={StaticResource LongToString}}" Style="{DynamicResource H-StatsText}"/>
-                                </StackPanel>
+                                <Border Style="{DynamicResource V-SeparatorBorder}" Margin="10,10"/>
 
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <TextBlock Text="Folders: " Style="{DynamicResource CenterTextBlock}"/>
-                                    <TextBlock Text="{Binding FilesHandler.Int_TotalFolders}" Style="{DynamicResource H-StatsText}"/>
-                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="10,0">
 
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <TextBlock Text="Ignore Folders: " Style="{DynamicResource CenterTextBlock}"/>
-                                    <TextBlock Text="True" Style="{DynamicResource H-StatsText}"/>
+                                    <TextBlock Text="Progress" Style="{DynamicResource BaseTextBlock}" Foreground="Wheat" FontSize="14"/>
+
+                                    <Border Style="{DynamicResource H-SeparatorBorder}" Margin="0,10"/>
+
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <StackPanel Orientation="Vertical">
+
+                                            <TextBlock Text="Bytes Processed" Style="{DynamicResource CenterTextBlock}"/>
+                                            <TextBlock Text="{Binding FilesHandler.Long_ProcessedSize, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
+
+                                            <TextBlock Text="Bytes Remaining" Style="{DynamicResource CenterTextBlock}"/>
+                                            <TextBlock Text="{Binding FilesHandler.Long_RemainingByte, Converter={StaticResource LongToString}}" Style="{DynamicResource StatsText}"/>
+
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Vertical">
+                                            
+                                            
+                                            
+                                        </StackPanel>
+                                        
+                                    </StackPanel>
+                                    
                                 </StackPanel>
 
                             </StackPanel>
-
+                            
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Column="1">
 
-                                <Button Content="Encrypt"/>
+                                <Button Content="Encrypt" Command="{Binding CMD_OrderList_ByType}"/>
 
                             </StackPanel>
                             

@@ -35,11 +35,7 @@ namespace R_Crypt.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as CryptWindowVM).Config != null) 
-                (DataContext as CryptWindowVM).Config.StartBackgroundNotify();
 
-            if ((DataContext as CryptWindowVM).FilesHandler != null)
-                (DataContext as CryptWindowVM).FilesHandler.StartBackgroundNotify();
         }
     }
 }
